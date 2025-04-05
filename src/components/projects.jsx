@@ -22,7 +22,7 @@ export default function Projects() {
   const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
   console.log("Token:", import.meta.env.VITE_GITHUB_TOKEN);
   console.log("Username:", import.meta.env.VITE_GITHUB_USERNAME);
-  fetch("https://api.github.com/users/ahmed0988/repos", {
+  fetch("https://api.github.com/users/ahmed9088/repos", {
     headers: {
       Authorization: "token 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",
     },

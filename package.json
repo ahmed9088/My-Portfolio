@@ -9,7 +9,6 @@
   "serve": "vite preview",
   "postinstall": "chmod +x node_modules/.bin/vite || true"
 },
-  },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
     "@radix-ui/react-tabs": "^1.1.3",

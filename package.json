@@ -4,10 +4,13 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "postinstall": "if exist node_modules\\.bin\\vite ( icacls node_modules\\.bin\\vite /grant Everyone:F )"
+    "scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "serve": "vite preview",
+  "postinstall": "chmod +x node_modules/.bin/vite || true"
+}
+
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",

@@ -24,7 +24,7 @@ export default function Projects() {
   console.log("Username:", import.meta.env.VITE_GITHUB_USERNAME);
   fetch("https://api.github.com/users/ahmed9088/repos", {
     headers: {
-      Authorization: `token ${process.env.GITHUB_TOKEN}`,
+      Authorization: `token ${process.env.VITE_GITHUB_TOKEN}`,
     },
   })
     .then((res) => res.json())

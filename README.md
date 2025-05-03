@@ -27,7 +27,7 @@ It includes sections such as:
 - **Frameworks & Libraries:** React.js, Tailwind CSS (if used)
 - **Deployment:** Vercel
 
-## 📁 Folder Structure (If cloned locally)
+## 📁 Folder Structure
 
 📦 my-portfolio/
 ┣ 📁 public/
@@ -47,17 +47,12 @@ It includes sections such as:
 - Contact form with email integration (if applicable)
 - SEO friendly and fast loading
 
-## 📸 Screenshots
-
-> _You can add relevant screenshots or a video demo of your portfolio here for better presentation._
 
 ## 📬 Contact
 
 For any collaboration or inquiries, feel free to connect with me:
 
-- **Email:** ahmed.dev.contact@gmail.com (or your real contact)
-- **LinkedIn:** [Ahmed on LinkedIn](https://linkedin.com/in/yourusername)
-- **GitHub:** [Ahmed on GitHub](https://github.com/yourusername)
+- **Email:** memon1ahmed@gmail.com
 
 ## 📄 License
 

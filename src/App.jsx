@@ -178,10 +178,7 @@ function App() {
   usePerformanceMonitoring();
 
   // Preload critical resources
-  useResourcePreloader([
-    { type: 'image', url: '/path/to/hero-image.jpg' },
-    { type: 'font', url: '/path/to/custom-font.woff2' }
-  ]);
+  useResourcePreloader([]);
 
   // Handle loading screen with resource loading simulation
   useEffect(() => {

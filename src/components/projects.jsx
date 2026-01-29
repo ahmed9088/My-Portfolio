@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform } from "framer-motion";
 import axios from "axios";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -219,8 +219,8 @@ function ProjectCard({ repo, index, isDark }) {
       }}
     >
       <Card className={`h-full flex flex-col shadow-sm hover:shadow-lg transition-all duration-300 backdrop-blur-sm overflow-hidden relative ${isDark
-          ? 'border-slate-700/50 bg-slate-800/90'
-          : 'border-gray-200/50 bg-white/90'
+        ? 'border-slate-700/50 bg-slate-800/90'
+        : 'border-gray-200/50 bg-white/90'
         } ${isHovered ? 'ring-2 ring-blue-500/50' : ''}`}>
 
         {/* Spotlight Effect Layer */}
@@ -237,8 +237,8 @@ function ProjectCard({ repo, index, isDark }) {
             <h3 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{repo.name}</h3>
             {repo.fork && (
               <Badge variant="outline" className={`text-xs ${isDark
-                  ? 'bg-amber-900/20 text-amber-300 border-amber-800/30'
-                  : 'bg-amber-50 text-amber-700 border-amber-200'
+                ? 'bg-amber-900/20 text-amber-300 border-amber-800/30'
+                : 'bg-amber-50 text-amber-700 border-amber-200'
                 }`}>
                 Fork
               </Badge>
@@ -251,16 +251,16 @@ function ProjectCard({ repo, index, isDark }) {
           <div className="flex flex-wrap gap-2 mb-4">
             {repo.language && (
               <Badge variant="secondary" className={`text-xs ${isDark
-                  ? 'bg-blue-900/20 text-blue-300'
-                  : 'bg-blue-50 text-blue-700'
+                ? 'bg-blue-900/20 text-blue-300'
+                : 'bg-blue-50 text-blue-700'
                 }`}>
                 {repo.language}
               </Badge>
             )}
             {repo.topics && repo.topics.slice(0, 3).map((topic, i) => (
               <Badge key={i} variant="outline" className={`text-xs ${isDark
-                  ? 'border-slate-600'
-                  : 'border-gray-200'
+                ? 'border-slate-600'
+                : 'border-gray-200'
                 }`}>
                 {topic}
               </Badge>
@@ -290,8 +290,8 @@ function ProjectCard({ repo, index, isDark }) {
           </div>
           <div className="flex gap-2">
             <Button asChild size="sm" variant="outline" className={`gap-1 ${isDark
-                ? 'border-slate-600 hover:bg-slate-700'
-                : 'border-gray-300/50 hover:bg-gray-100'
+              ? 'border-slate-600 hover:bg-slate-700'
+              : 'border-gray-300/50 hover:bg-gray-100'
               }`}>
               <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
                 <Github className="h-4 w-4" />
@@ -300,8 +300,8 @@ function ProjectCard({ repo, index, isDark }) {
             </Button>
             {repo.homepage && (
               <Button asChild size="sm" variant="outline" className={`gap-1 ${isDark
-                  ? 'border-slate-600 hover:bg-slate-700'
-                  : 'border-gray-300/50 hover:bg-gray-100'
+                ? 'border-slate-600 hover:bg-slate-700'
+                : 'border-gray-300/50 hover:bg-gray-100'
                 }`}>
                 <a href={repo.homepage} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="h-4 w-4" />
@@ -392,8 +392,8 @@ export default function Projects() {
           className="flex flex-col items-center text-center mb-16"
         >
           <Badge variant="outline" className={`mb-4 px-4 py-1.5 text-sm backdrop-blur-sm shadow-sm ${isDark
-              ? 'border-slate-700/50 bg-slate-800/90'
-              : 'border-gray-300/50 bg-white/90'
+            ? 'border-slate-700/50 bg-slate-800/90'
+            : 'border-gray-300/50 bg-white/90'
             }`}>
             My GitHub
           </Badge>
@@ -411,8 +411,8 @@ export default function Projects() {
         {/* Tabs for Repository Categories */}
         <Tabs defaultValue="All" onValueChange={setActiveTab} className="w-full">
           <TabsList className={`grid grid-cols-2 md:grid-cols-4 gap-2 mb-10 backdrop-blur-sm p-1 rounded-xl max-w-2xl mx-auto border shadow-sm ${isDark
-              ? 'bg-slate-800/90 border-slate-700/50'
-              : 'bg-white/90 border-gray-200/50'
+            ? 'bg-slate-800/90 border-slate-700/50'
+            : 'bg-white/90 border-gray-200/50'
             }`}>
             {categories.slice(0, 8).map((category) => (
               <TabsTrigger
@@ -466,8 +466,8 @@ export default function Projects() {
                         onClick={() => setShowAll(!showAll)}
                         variant="outline"
                         className={`gap-2 ${isDark
-                            ? 'border-slate-600 hover:bg-slate-700'
-                            : 'border-gray-300/50 hover:bg-gray-100'
+                          ? 'border-slate-600 hover:bg-slate-700'
+                          : 'border-gray-300/50 hover:bg-gray-100'
                           }`}
                       >
                         {showAll ? (
@@ -496,8 +496,8 @@ export default function Projects() {
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
             className={`mt-16 backdrop-blur-sm border rounded-xl p-6 shadow-sm ${isDark
-                ? 'bg-slate-800/90 border-slate-700/50'
-                : 'bg-white/90 border-gray-200/50'
+              ? 'bg-slate-800/90 border-slate-700/50'
+              : 'bg-white/90 border-gray-200/50'
               }`}
           >
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">

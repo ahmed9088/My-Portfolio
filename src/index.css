@@ -4,13 +4,13 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 98%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 221.2 83.2% 53.3%;
+    --primary: 230 60% 50%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -23,17 +23,17 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --card: 240 10% 6%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 230 75% 65%;
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -49,52 +49,78 @@
   }
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap');
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif; /* Added fallback font-family */
+    font-family: 'Outfit', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+  
+  h1, h2, h3, h4 {
+    font-family: 'Syne', sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Premium Noise Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  filter: contrast(150%) brightness(100%);
+}
+
+.dark body::before {
+  opacity: 0.05;
+  filter: invert(100%) contrast(150%) brightness(100%);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Custom modern scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted));
-  border-radius: 5px;
+  background: hsl(var(--muted-foreground) / 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground));
+  background: hsl(var(--primary) / 0.5);
 }
 
-/* Dark Theme */
-.dark {
-  --background-color: #121212;
-  --text-color: #ffffff;
+::selection {
+  background: hsl(var(--primary) / 0.2);
+  color: inherit;
 }
 
-/* Light Theme */
-.light {
-  --background-color: #ffffff;
-  --text-color: #000000;
+/* Utility for glassmorphism */
+.glass {
+  @apply backdrop-blur-md bg-white/5 border border-white/10;
 }
 
-/* Apply theme variables */
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
+.perspective-1000 {
+  perspective: 1000px;
 }

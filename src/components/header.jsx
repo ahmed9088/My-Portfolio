@@ -12,7 +12,7 @@ export default function Header({ activeSection }) {
   const headerRef = useRef(null);
   const lastScrollY = useRef(0);
   const scrollTimeout = useRef(null);
-  
+
   // Use the theme context instead of props
   const { theme, resolvedTheme, setTheme, toggleTheme, resetToSystemTheme, isDark, isLight, isSystem, mounted } = useTheme();
 
@@ -20,30 +20,30 @@ export default function Header({ activeSection }) {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       // Set scrolled state for styling
       setScrolled(currentScrollY > 20);
-      
+
       // Hide/show header based on scroll direction
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
       }
-      
+
       // Clear any existing timeout
       if (scrollTimeout.current) {
         clearTimeout(scrollTimeout.current);
       }
-      
+
       // Show header when scrolling stops
       scrollTimeout.current = setTimeout(() => {
         setIsVisible(true);
       }, 1000);
-      
+
       lastScrollY.current = currentScrollY;
     };
-    
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -60,7 +60,7 @@ export default function Header({ activeSection }) {
         setIsOpen(false);
       }
     };
-    
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [isOpen]);
@@ -72,13 +72,13 @@ export default function Header({ activeSection }) {
         setIsDropdownOpen(false);
       }
     };
-    
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const navigation = [
-    { name: "Home", href: "#hero", id: "hero" },
+    { name: "Home", href: "#home", id: "home" },
     { name: "About", href: "#about", id: "about" },
     { name: "Experience", href: "#experience", id: "experience" },
     { name: "Skills", href: "#skills", id: "skills" },
@@ -181,11 +181,10 @@ export default function Header({ activeSection }) {
       variants={headerVariants}
       initial="hidden"
       animate={isVisible ? "visible" : "hidden"}
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled
           ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-lg dark:shadow-primary/5 border-b border-gray-200/50 dark:border-slate-700/50"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
@@ -237,17 +236,15 @@ export default function Header({ activeSection }) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
                 className={`relative px-3 py-2 text-sm font-medium rounded-full transition-all duration-300 group
-                  ${
-                    activeSection === item.id
-                      ? "text-white bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 shadow-sm"
-                      : "text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 dark:hover:from-blue-500 dark:hover:to-purple-500"
+                  ${activeSection === item.id
+                    ? "text-white bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 shadow-sm"
+                    : "text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 dark:hover:from-blue-500 dark:hover:to-purple-500"
                   }`}
               >
                 {item.name}
                 <span
-                  className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-white transition-all duration-300 ${
-                    activeSection === item.id ? "opacity-100" : "opacity-0"
-                  }`}
+                  className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-white transition-all duration-300 ${activeSection === item.id ? "opacity-100" : "opacity-0"
+                    }`}
                 />
               </motion.a>
             ))}
@@ -261,8 +258,8 @@ export default function Header({ activeSection }) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ 
-                  scale: 1.15, 
+                whileHover={{
+                  scale: 1.15,
                   rotate: 5,
                   backgroundColor: isDark ? "rgba(99, 102, 241, 0.1)" : "rgba(99, 102, 241, 0.05)"
                 }}
@@ -273,7 +270,7 @@ export default function Header({ activeSection }) {
                 {link.icon}
               </motion.a>
             ))}
-            
+
             {/* Theme Toggle Dropdown */}
             <div className="relative">
               <motion.button
@@ -295,7 +292,7 @@ export default function Header({ activeSection }) {
                   </motion.div>
                 </AnimatePresence>
               </motion.button>
-              
+
               {/* Theme Dropdown */}
               <AnimatePresence>
                 {isDropdownOpen && (
@@ -311,11 +308,10 @@ export default function Header({ activeSection }) {
                         setTheme("light");
                         setIsDropdownOpen(false);
                       }}
-                      className={`flex items-center w-full px-4 py-3 text-left text-sm ${
-                        isLight 
-                          ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400" 
+                      className={`flex items-center w-full px-4 py-3 text-left text-sm ${isLight
+                          ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
                           : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700"
-                      }`}
+                        }`}
                     >
                       <Sun className="w-4 h-4 mr-3" />
                       Light Mode
@@ -325,11 +321,10 @@ export default function Header({ activeSection }) {
                         setTheme("dark");
                         setIsDropdownOpen(false);
                       }}
-                      className={`flex items-center w-full px-4 py-3 text-left text-sm ${
-                        isDark 
-                          ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400" 
+                      className={`flex items-center w-full px-4 py-3 text-left text-sm ${isDark
+                          ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
                           : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700"
-                      }`}
+                        }`}
                     >
                       <Moon className="w-4 h-4 mr-3" />
                       Dark Mode
@@ -340,11 +335,10 @@ export default function Header({ activeSection }) {
                         resetToSystemTheme();
                         setIsDropdownOpen(false);
                       }}
-                      className={`flex items-center w-full px-4 py-3 text-left text-sm ${
-                        isSystem 
-                          ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400" 
+                      className={`flex items-center w-full px-4 py-3 text-left text-sm ${isSystem
+                          ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
                           : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700"
-                      }`}
+                        }`}
                     >
                       <div className="w-4 h-4 mr-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"></div>
                       System Theme
@@ -401,10 +395,9 @@ export default function Header({ activeSection }) {
                       handleNavClick(item.href);
                     }}
                     className={`flex items-center justify-between px-4 py-3 text-base font-medium rounded-lg transition-colors
-                      ${
-                        activeSection === item.id
-                          ? "text-white bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500"
-                          : "text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 dark:hover:from-blue-500 dark:hover:to-purple-500"
+                      ${activeSection === item.id
+                        ? "text-white bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500"
+                        : "text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 dark:hover:from-blue-500 dark:hover:to-purple-500"
                       }`}
                   >
                     {item.name}
@@ -419,7 +412,7 @@ export default function Header({ activeSection }) {
                   </motion.a>
                 ))}
               </div>
-              
+
               <div className="px-4 pt-4 pb-6 border-t border-gray-200/50 dark:border-slate-700/50">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">Connect</h3>

@@ -1,75 +1,85 @@
 "use client";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, GraduationCap, Building2, Code2 } from "lucide-react";
+import { Calendar, GraduationCap, Briefcase, MapPin, ArrowUpRight, Code2, Building2 } from "lucide-react";
 import { useTheme } from "./theme-provider";
-
-const timelineItems = [
-  {
-    period: "2022 - 2025",
-    title: "Advanced Software Engineering",
-    subtitle: "Aptech Defence",
-    desc: "Full-stack specialization with focus on PHP, Laravel, and Flutter.",
-    icon: <Code2 />
-  },
-  {
-    period: "2024 - Present",
-    title: "BS Computer Science",
-    subtitle: "GCU Hyderabad",
-    desc: "Theoretical foundations and core computing principles.",
-    icon: <GraduationCap />
-  },
-  {
-    period: "2023 - 2024",
-    title: "PHP Developer",
-    subtitle: "Aptech Defence",
-    desc: "Architecting web solutions and mentoring software aspirants.",
-    icon: <Building2 />
-  }
-];
 
 export default function Education() {
   const { mounted } = useTheme();
+
   if (!mounted) return null;
 
+  const experiences = [
+    {
+      period: "2024 — PRESENT",
+      title: "Software Engineering Scholar",
+      subtitle: "GCU Hyderabad",
+      desc: "Deep-diving into theoretical foundations and core computing principles.",
+      icon: <GraduationCap />,
+      type: "Academic"
+    },
+    {
+      period: "2022 — 2025",
+      title: "Full-Stack Specialist",
+      subtitle: "Aptech Defence",
+      desc: "Architecting boutique digital interfaces using PHP, Laravel, and Flutter.",
+      icon: <Code2 />,
+      type: "Research"
+    },
+    {
+      period: "2023 — 2024",
+      title: "Technical Mentor",
+      subtitle: "Aptech Defence",
+      desc: "Mentoring software aspirants and architecting educational web solutions.",
+      icon: <Building2 />,
+      type: "Studio"
+    },
+  ];
+
   return (
-    <section id="experience" className="py-32 relative">
-      <div className="container px-6 mx-auto max-w-5xl">
-        <header className="mb-24">
-          <span className="text-primary font-mono text-xs uppercase tracking-[0.3em] mb-4 block underline underline-offset-8">The Journey</span>
-          <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">CV / EXP</h2>
+    <section id="experience" className="py-40 relative bg-background/50 border-y border-border/50">
+      <div className="container px-6 relative z-10 mx-auto max-w-7xl">
+        <header className="mb-32 flex flex-col md:flex-row md:items-end justify-between gap-12 text-left">
+          <div>
+            <span className="text-primary font-mono text-xs uppercase tracking-[0.4em] mb-6 block">02 // THE JOURNEY</span>
+            <h2 className="text-7xl md:text-9xl font-black tracking-tightest leading-none">CULTURE</h2>
+          </div>
+          <p className="max-w-xs text-muted-foreground text-lg font-light leading-relaxed">
+            A chronological record of technical evolution and academic research.
+          </p>
         </header>
 
-        <div className="space-y-12">
-          {timelineItems.map((item, i) => (
+        <div className="space-y-0">
+          {experiences.map((exp, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="group relative flex flex-col md:flex-row gap-8 pb-12 border-b border-border last:border-0"
+              className="group relative grid md:grid-cols-[1fr_2fr] gap-12 py-16 border-t border-border/50 hover:bg-muted/5 transition-colors cursor-default text-left"
             >
-              <div className="md:w-1/4">
-                <span className="text-sm font-black opacity-30 group-hover:opacity-100 transition-opacity uppercase tracking-widest">{item.period}</span>
+              <div className="flex flex-col gap-4">
+                <span className="text-xs font-mono uppercase tracking-[0.5em] opacity-40">{exp.period}</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] font-mono uppercase tracking-widest px-3 py-1 bg-primary/10 text-primary rounded-full">{exp.type}</span>
+                </div>
               </div>
 
-              <div className="flex-1">
-                <div className="flex items-start gap-6">
-                  <div className="p-3 rounded-xl bg-muted text-foreground group-hover:bg-primary group-hover:text-background transition-colors">
-                    {item.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold uppercase tracking-tight mb-2">{item.title}</h3>
-                    <div className="flex items-center gap-2 text-muted-foreground mb-4">
-                      <MapPin className="w-4 h-4" />
-                      <span className="text-sm font-medium">{item.subtitle}</span>
-                    </div>
-                    <p className="text-lg font-light text-muted-foreground max-w-2xl">{item.desc}</p>
-                  </div>
+              <div className="relative">
+                <div className="flex justify-between items-start mb-6">
+                  <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter leading-none group-hover:text-primary transition-colors">
+                    {exp.title}
+                  </h3>
+                  <ArrowUpRight className="w-8 h-8 opacity-0 group-hover:opacity-40 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </div>
+                <h4 className="text-xl font-bold mb-6 opacity-60 italic serif lowercase">{exp.subtitle}</h4>
+                <p className="text-2xl text-muted-foreground font-light leading-snug max-w-2xl">
+                  {exp.desc}
+                </p>
               </div>
             </motion.div>
           ))}
+          <div className="border-t border-border/50 w-full" />
         </div>
       </div>
     </section>

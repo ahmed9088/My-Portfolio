@@ -110,7 +110,8 @@ export default function Hero() {
               <img
                 src={myImage}
                 alt="Ahmed Saffar"
-                className="w-full h-full object-cover grayscale transition-all duration-[2000ms] group-hover:scale-105 group-hover:grayscale-0"
+                className="w-full h-full object-cover grayscale transition-all group-hover:scale-105 group-hover:grayscale-0"
+                style={{ transitionDuration: '2000ms' }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-80" />
 

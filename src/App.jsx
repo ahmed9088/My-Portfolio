@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from "react";
-import Lenis from "@studio-freight/lenis";
+import Lenis from "lenis";
 import { ThemeProvider } from "./components/theme-provider.jsx";
 import CustomCursor from "./components/ui/CustomCursor";
 import ScrollProgress from "./components/ui/ScrollProgress";

@@ -43,9 +43,9 @@ export default function Header({ activeSection }) {
   }, []);
 
   const navigation = [
-    { name: "Folio", href: "#projects", id: "projects" },
-    { name: "Identity", href: "#about", id: "about" },
-    { name: "Culture", href: "#experience", id: "experience" },
+    { name: "Projects", href: "#projects", id: "projects" },
+    { name: "About", href: "#about", id: "about" },
+    { name: "Experience", href: "#experience", id: "experience" },
     { name: "Contact", href: "#contact", id: "contact" },
   ];
 

@@ -133,27 +133,43 @@ html {
 /* Bento Grid Utilities */
 .bento-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(100px, auto);
-  gap: 1.5rem;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .bento-grid {
+    gap: 1.5rem;
+  }
 }
 
 .bento-item {
-  @apply glass-card p-8 flex flex-col justify-center;
+  @apply glass-card p-6 md:p-8 flex flex-col justify-center;
   will-change: transform, opacity;
 }
 
 .bento-item-large {
-  grid-column: span 2;
-  grid-row: span 2;
+  grid-column: span 1;
+  grid-row: span 1;
 }
 
-.bento-item-wide {
-  grid-column: span 2;
+@media (min-width: 768px) {
+  .bento-item-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .bento-item-wide {
+    grid-column: span 2;
+  }
+
+  .bento-item-tall {
+    grid-row: span 2;
+  }
 }
 
-.bento-item-tall {
-  grid-row: span 2;
+.perspective-2000 {
+  perspective: 2000px;
 }
 
 .animate-fast {

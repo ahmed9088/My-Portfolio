@@ -9,7 +9,7 @@ import { useTheme } from "./theme-provider";
 import Magnetic from "./ui/Magnetic";
 
 export default function Hero() {
-  const { isDark, mounted } = useTheme();
+  const { mounted } = useTheme();
   const [time, setTime] = useState("");
 
   useEffect(() => {
@@ -26,123 +26,132 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.05, delayChildren: 0.1 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } }
-  };
+  const titleWords = ["DESIGN", "DRIVEN", "ENGINEERING"];
 
   if (!mounted) return null;
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-background">
+    <section id="home" className="relative min-h-screen flex items-center pt-20 pb-20 overflow-hidden bg-background">
+      {/* Background Depth Text */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none overflow-hidden">
+        <h2 className="text-[30vw] font-black tracking-tighter leading-none translate-y-20">
+          SAFFAR
+        </h2>
+      </div>
+
       <div className="container px-6 relative z-10 mx-auto max-w-7xl">
-        <div className="flex flex-col lg:flex-row items-start gap-20">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-16 lg:gap-24">
 
           {/* Main Info */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="flex-[1.5] text-left"
-          >
-            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-6 mb-12">
-              <div className="flex items-center gap-3 glass px-5 py-2.5 rounded-full border-border/50">
+          <div className="flex-[1.5] w-full text-center lg:text-left">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10"
+            >
+              <div className="flex items-center gap-3 glass px-4 py-2 rounded-full border-primary/10">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                 </span>
-                <span className="text-sm font-medium tracking-tight">Available for new ventures</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest">Global Ops // Active</span>
               </div>
-              <div className="flex items-center gap-3 opacity-40 text-sm font-mono">
-                <Clock className="w-4 h-4" />
-                <span>{time} PKT</span>
+              <div className="flex items-center gap-3 opacity-40 text-[10px] font-mono tracking-widest uppercase">
+                <Clock className="w-3 h-3" />
+                <span>Karachi, PK // {time}</span>
               </div>
             </motion.div>
 
-            <motion.h1
-              variants={itemVariants}
-              className="text-6xl md:text-9xl lg:text-[10rem] font-black mb-12 leading-[0.8] tracking-tightest uppercase"
-            >
-              DESIGN <br />
-              <span className="serif lowercase text-[0.9em] opacity-60">driven</span> <br />
-              ENGINEERING
-            </motion.h1>
+            <h1 className="text-[12vw] lg:text-[10rem] font-black mb-12 leading-[0.85] tracking-tightest uppercase flex flex-col items-center lg:items-start">
+              {titleWords.map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: 100, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.2 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className={i === 1 ? "serif italic lowercase opacity-40 pl-[10%] lg:pl-40" : ""}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </h1>
 
-            <div className="flex flex-col md:flex-row items-start md:items-end gap-12">
+            <div className="flex flex-col md:flex-row items-center lg:items-end gap-10">
               <motion.p
-                variants={itemVariants}
-                className="text-2xl text-muted-foreground max-w-md font-light leading-snug"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="text-lg md:text-xl text-muted-foreground max-w-sm font-light leading-relaxed text-center lg:text-left"
               >
-                Ahmed Saffar is a multi-disciplinary developer crafting high-performance digital signatures.
+                Ahmed Saffar constructs high-performance architectures where technical precision meets artistic intent.
               </motion.p>
 
-              <motion.div variants={itemVariants}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+              >
                 <Magnetic>
                   <Button
                     size="xl"
-                    className="rounded-full px-10 py-10 text-xl font-bold group bg-foreground text-background hover:bg-foreground/90 transition-all shadow-2xl"
+                    className="rounded-full px-10 py-10 text-lg font-black group bg-primary text-background hover:scale-95 transition-all"
                     onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: 'smooth' })}
                   >
-                    View Folklore
-                    <ArrowRight className="ml-3 w-6 h-6 group-hover:rotate-[-45deg] transition-transform duration-500" />
+                    DEPLOY ARCHIVE
+                    <ArrowRight className="ml-3 w-5 h-5 group-hover:rotate-[-45deg] transition-transform duration-500" />
                   </Button>
                 </Magnetic>
               </motion.div>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Abstract Image Concept */}
+          {/* Architectural Image Container */}
           <motion.div
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1 relative w-full lg:w-auto"
+            className="flex-1 relative w-full max-w-[400px] lg:max-w-none perspective-2000"
           >
-            <div className="relative aspect-[3/4] w-full max-w-[450px] ml-auto overflow-hidden bg-muted group">
-              <img
-                src={myImage}
-                alt="Ahmed Saffar"
-                className="w-full h-full object-cover grayscale transition-all group-hover:scale-105 group-hover:grayscale-0"
-                style={{ transitionDuration: '2000ms' }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-80" />
+            <div className="relative aspect-[4/5] w-full max-w-[450px] mx-auto lg:ml-auto group">
+              {/* Decorative Frame */}
+              <div className="absolute -inset-4 border border-primary/5 rounded-[2rem] -z-10 transition-all duration-700 group-hover:inset-0 group-hover:border-primary/20" />
+              <div className="absolute -inset-8 border border-primary/5 rounded-[2rem] -z-20 transition-all duration-1000 group-hover:inset-0 group-hover:opacity-0" />
 
-              <div className="absolute bottom-10 left-10 text-left">
-                <span className="text-xs font-mono uppercase tracking-[0.4em] opacity-40 mb-2 block">Folio // 026</span>
-                <h4 className="text-3xl font-black italic serif lowercase leading-none">The Architect</h4>
+              <div className="w-full h-full rounded-[1.5rem] overflow-hidden bg-muted relative border border-white/5">
+                <img
+                  src={myImage}
+                  alt="Ahmed Saffar"
+                  className="w-full h-full object-cover grayscale brightness-90 transition-all duration-[2000ms] group-hover:scale-110 group-hover:grayscale-0 group-hover:brightness-105"
+                  style={{ objectPosition: 'center 20%' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-40 group-hover:opacity-20 transition-opacity" />
               </div>
-            </div>
 
-            {/* Minimalist Floating Card */}
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-10 -left-10 glass-card p-6 hidden xl:block"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-background font-black">AS</div>
-                <div>
-                  <p className="text-sm font-bold uppercase tracking-widest">Ahmed Saffar</p>
-                  <p className="text-[10px] opacity-40 font-mono">Creative Developer</p>
+              {/* Status Artifact */}
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -bottom-6 -right-6 lg:-right-12 glass-card px-6 py-4 rounded-2xl flex items-center gap-4 border-primary/20"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[8px] font-black uppercase tracking-[0.3em] opacity-40 mb-1">Status</span>
+                  <span className="text-xs font-bold uppercase tracking-widest whitespace-nowrap">Architect.V2</span>
                 </div>
-              </div>
-            </motion.div>
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
+
         </div>
       </div>
 
-      {/* Boutique Signature */}
-      <div className="absolute top-1/2 -right-20 rotate-90 pointer-events-none hidden 2xl:block">
-        <span className="text-sm font-mono uppercase tracking-[1em] opacity-10">
-          Handcrafted in Karachi // Modern Engineering
+      {/* Side Label */}
+      <div className="absolute top-1/2 -right-32 rotate-90 pointer-events-none hidden xl:block">
+        <span className="text-[10px] font-mono uppercase tracking-[1em] opacity-10">
+          Crafting Digital Legacies // System 001
         </span>
       </div>
     </section>

@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
+import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
 
 export default function CustomCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
-  const [isHovered, setIsHovered] = useState(false);
+  const [cursorState, setCursorState] = useState("default"); // default, hover, project, drag
+  const [cursorLabel, setCursorLabel] = useState("");
 
   const springConfig = { damping: 30, stiffness: 500, mass: 0.5 };
   const x = useSpring(cursorX, springConfig);
@@ -18,10 +19,23 @@ export default function CustomCursor() {
     };
 
     const handleMouseOver = (e) => {
-      if (e.target.closest("button, a, [role='button']")) {
-        setIsHovered(true);
+      const target = e.target;
+      const projectCard = target.closest("[data-cursor='project']");
+      const interactive = target.closest("button, a, [role='button']");
+      const dragArea = target.closest("[data-cursor='drag']");
+
+      if (projectCard) {
+        setCursorState("project");
+        setCursorLabel("VIEW");
+      } else if (dragArea) {
+        setCursorState("drag");
+        setCursorLabel("DRAG");
+      } else if (interactive) {
+        setCursorState("hover");
+        setCursorLabel("");
       } else {
-        setIsHovered(false);
+        setCursorState("default");
+        setCursorLabel("");
       }
     };
 
@@ -35,19 +49,37 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-6 h-6 border border-primary rounded-full pointer-events-none z-[9999] hidden md:flex items-center justify-center mix-blend-difference"
+      className="fixed top-0 left-0 pointer-events-none z-[9999] hidden md:flex items-center justify-center mix-blend-difference"
       style={{
         x,
         y,
         translateX: "-50%",
         translateY: "-50%",
       }}
-      animate={{
-        scale: isHovered ? 2.5 : 1,
-        backgroundColor: isHovered ? "var(--primary)" : "transparent",
-      }}
     >
-      {isHovered && <div className="w-1 h-1 bg-background rounded-full" />}
+      <motion.div
+        animate={{
+          width: cursorState === "project" || cursorState === "drag" ? 80 : cursorState === "hover" ? 40 : 12,
+          height: cursorState === "project" || cursorState === "drag" ? 80 : cursorState === "hover" ? 40 : 12,
+          backgroundColor: cursorState === "default" ? "var(--primary)" : "transparent",
+          border: cursorState === "default" ? "none" : "1px solid var(--primary)",
+        }}
+        className="rounded-full flex items-center justify-center overflow-hidden"
+      >
+        <AnimatePresence>
+          {cursorLabel && (
+            <motion.span
+              key={cursorLabel}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="text-[10px] font-black uppercase tracking-widest text-primary"
+            >
+              {cursorLabel}
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </motion.div>
   );
 }

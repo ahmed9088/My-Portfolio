@@ -9,14 +9,20 @@ import { useTheme } from "./theme-provider";
 import Magnetic from "./ui/Magnetic";
 
 function ProjectCard({ repo, index, isDark, isFeatured }) {
-  const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"]
+  });
+
+  const yParallax = useTransform(scrollYProgress, [0, 1], [0, index % 2 === 0 ? -100 : 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.6, 1, 1, 0.6]);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const rotateX = useTransform(y, [-300, 300], [10, -10]);
-  const rotateY = useTransform(x, [-300, 300], [-10, 10]);
+  const rotateX = useSpring(useTransform(y, [-300, 300], [15, -15]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(x, [-300, 300], [-15, 15]), { stiffness: 300, damping: 30 });
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
@@ -28,139 +34,99 @@ function ProjectCard({ repo, index, isDark, isFeatured }) {
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
     x.set(0);
     y.set(0);
   };
 
-  // Microlink Screenshot API
-  const getPreviewUrl = (url) => {
-    if (!url) return null;
-    return `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`;
-  };
-
-  const previewUrl = getPreviewUrl(repo.homepage);
+  const previewUrl = repo.homepage
+    ? `https://api.microlink.io?url=${encodeURIComponent(repo.homepage)}&screenshot=true&meta=false&embed=screenshot.url`
+    : null;
 
   return (
     <motion.div
       ref={cardRef}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      viewport={{ once: true }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, perspective: 1000 }}
+      style={{ y: yParallax, opacity }}
       className={`h-full ${isFeatured ? "md:col-span-2" : ""}`}
+      data-cursor="project"
     >
-      <Card className={`h-full flex flex-col glass-card overflow-hidden relative group transition-all duration-500 ${isHovered ? "shadow-primary/20 scale-[1.02]" : ""}`}>
-        <div className="shimmer-overlay" />
+      <motion.div
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ rotateX, rotateY, perspective: 1000 }}
+        className="h-full"
+      >
+        <Card className="h-full flex flex-col glass-card overflow-hidden relative group transition-all duration-500 hover:border-primary/30">
+          {/* Depth Map Shimmer */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+            style={{
+              x: useTransform(x, [-300, 300], [-30, 30]),
+              y: useTransform(y, [-300, 300], [-30, 30]),
+            }}
+          />
 
-        {/* Project Preview Image */}
-        <div className="relative aspect-video overflow-hidden border-b border-white/5">
-          {previewUrl ? (
-            <img
-              src={previewUrl}
-              alt={repo.name}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              loading="lazy"
-              onError={(e) => {
-                e.target.style.display = 'none';
-                if (e.target.nextSibling) e.target.nextSibling.classList.remove('hidden');
-              }}
-            />
-          ) : null}
-          <div className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-purple-500/20 ${previewUrl ? 'hidden' : 'flex'}`}>
-            <div className="flex flex-col items-center gap-4 opacity-40">
-              <Code2 className="h-12 w-12" />
-              <span className="text-xs font-mono uppercase tracking-widest">Digital Laboratory</span>
-            </div>
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
-
-          <div className="absolute top-4 right-4 z-20">
-            {repo.homepage ? (
-              <Badge className="bg-primary/90 text-white backdrop-blur-md border-none px-3 py-1 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                Live Preview
-              </Badge>
+          <div className="relative aspect-video overflow-hidden border-b border-white/5">
+            {previewUrl ? (
+              <img
+                src={previewUrl}
+                alt={repo.name}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+              />
             ) : (
-              <Badge variant="outline" className="bg-white/5 text-white/50 backdrop-blur-md border-white/10 px-3 py-1">
-                Source Only
-              </Badge>
-            )}
-          </div>
-        </div>
-
-        <CardContent className="p-8 md:p-10 flex-grow relative z-10">
-          <div className="flex justify-between items-start mb-8">
-            <div className="flex items-center gap-3">
-              <div>
-                <h3 className={`font-bold tracking-tight ${isFeatured ? "text-3xl md:text-4xl" : "text-2xl"}`}>
-                  {repo.name}
-                </h3>
-                {repo.fork && <Badge variant="outline" className="text-[10px] mt-1 opacity-50 uppercase tracking-widest">Forked Project</Badge>}
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-purple-500/10">
+                <Code2 className="h-12 w-12 opacity-20" />
               </div>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
+            <div className="absolute top-4 right-4 z-20">
+              <Badge className={`${repo.homepage ? 'bg-primary/90' : 'bg-white/5 opacity-50'} border-none px-3 py-1 text-[8px] font-black uppercase tracking-widest`}>
+                {repo.homepage ? 'Live Artifact' : 'Source Protocol'}
+              </Badge>
             </div>
           </div>
 
-          <p className={`text-muted-foreground mb-10 font-light leading-relaxed ${isFeatured ? "text-xl max-w-2xl" : "text-lg line-clamp-2"}`}>
-            {repo.description || "A custom-engineered digital solution focused on performance and user experience."}
-          </p>
+          <CardContent className="p-8 md:p-10 flex-grow relative z-10">
+            <h3 className="font-black tracking-tightest text-3xl mb-4 uppercase">
+              {repo.name.replace(/-/g, ' ')}
+            </h3>
+            <p className="text-muted-foreground mb-8 font-light leading-relaxed line-clamp-2 italic serif">
+              {repo.description || "A custom-engineered digital solution focused on performance and user experience."}
+            </p>
+            <div className="flex flex-wrap gap-2 mb-8">
+              {repo.language && (
+                <span className="px-3 py-1 rounded-full border border-border text-[9px] font-bold uppercase tracking-widest opacity-40">
+                  {repo.language}
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-6 opacity-40 text-[10px] font-mono uppercase tracking-widest">
+              <div className="flex items-center gap-2"><Star className="h-3 w-3" /> {repo.stargazers_count}</div>
+              <div className="flex items-center gap-2"><GitFork className="h-3 w-3" /> {repo.forks_count}</div>
+            </div>
+          </CardContent>
 
-          <div className="flex flex-wrap gap-2 mb-10">
-            {repo.language && (
-              <Badge variant="secondary" className="bg-primary/10 text-primary border-none rounded-full px-4 py-1.5 text-sm">
-                {repo.language}
-              </Badge>
-            )}
-            {repo.topics?.slice(0, 3).map(topic => (
-              <Badge key={topic} variant="outline" className="rounded-full px-4 py-1.5 text-sm opacity-60">
-                {topic}
-              </Badge>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-8 opacity-60 text-sm font-medium">
-            <div className="flex items-center gap-2"><Star className={`h-5 w-5 ${repo.stargazers_count > 0 ? "text-yellow-500 fill-yellow-500" : ""}`} /> {repo.stargazers_count} stars</div>
-            {repo.forks_count > 0 && <div className="flex items-center gap-2"><GitFork className="h-5 w-5" /> {repo.forks_count} forks</div>}
-          </div>
-        </CardContent>
-
-        <CardFooter className="p-8 md:p-10 pt-0 flex justify-between items-center relative z-10 mt-auto">
-          <div className="flex items-center gap-2 text-xs opacity-40 font-mono tracking-wider">
-            <Calendar className="h-4 w-4" />
-            {new Date(repo.updated_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase()}
-          </div>
-          <div className="flex gap-3">
-            <Magnetic>
-              <a
-                href={repo.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-full bg-white/5 hover:bg-primary hover:text-white transition-all duration-300"
-                aria-label="GitHub Repository"
-              >
-                <Github className="h-6 w-6" />
-              </a>
-            </Magnetic>
-            {repo.homepage && (
+          <CardFooter className="p-8 md:p-10 pt-0 flex justify-between items-center relative z-10 mt-auto">
+            <div className="text-[10px] opacity-20 font-mono tracking-[0.2em] uppercase">
+              {new Date(repo.updated_at).getFullYear()} // ARCHIVE
+            </div>
+            <div className="flex gap-4">
               <Magnetic>
-                <a
-                  href={repo.homepage}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-white/5 hover:bg-primary hover:text-white transition-all duration-300"
-                  aria-label="Live Demo"
-                >
-                  <ExternalLink className="h-6 w-6" />
+                <a href={repo.html_url} target="_blank" className="p-3 rounded-full border border-border hover:bg-primary hover:text-white transition-all">
+                  <Github className="h-5 w-5" />
                 </a>
               </Magnetic>
-            )}
-          </div>
-        </CardFooter>
-      </Card>
+              {repo.homepage && (
+                <Magnetic>
+                  <a href={repo.homepage} target="_blank" className="p-3 rounded-full bg-primary text-white hover:scale-110 transition-all">
+                    <ExternalLink className="h-5 w-5" />
+                  </a>
+                </Magnetic>
+              )}
+            </div>
+          </CardFooter>
+        </Card>
+      </motion.div>
     </motion.div>
   );
 }

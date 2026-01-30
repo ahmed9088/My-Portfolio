@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView, useMotionValue, useTransform, useScroll, AnimatePresence } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Badge } from "./ui/badge";

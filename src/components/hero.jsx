@@ -1,15 +1,12 @@
-"use client";
 import { motion } from "framer-motion";
 import cvFile from "../assets/documents/My Resume.pdf";
 import { Button } from "./ui/button";
 import { Download, Github, Linkedin, Twitter, Mail, ExternalLink, Code, Palette, ArrowRight, MapPin, Clock } from "lucide-react";
 import myImage from "../assets/images/ahmed.png";
 import { useState, useEffect } from "react";
-import { useTheme } from "./theme-provider";
 import Magnetic from "./ui/Magnetic";
 
 export default function Hero() {
-  const { mounted } = useTheme();
   const [time, setTime] = useState("");
 
   useEffect(() => {
@@ -25,8 +22,6 @@ export default function Hero() {
     const interval = setInterval(updateTime, 60000);
     return () => clearInterval(interval);
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <section id="home" className="relative min-h-screen flex items-center py-20 md:py-32 overflow-hidden bg-background">

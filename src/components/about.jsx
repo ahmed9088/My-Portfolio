@@ -1,13 +1,7 @@
-"use client";
 import { motion } from "framer-motion";
 import { Sparkles, Code, Database, Smartphone, Palette, ArrowRight, Quote, Globe, Cpu, MapPin, Zap, Layout } from "lucide-react";
-import { useTheme } from "./theme-provider";
 
 export default function About() {
-  const { mounted } = useTheme();
-
-  if (!mounted) return null;
-
   const skills = ["React & Next.js", "TypeScript", "Node.js", "UI/UX Design"];
 
   return (

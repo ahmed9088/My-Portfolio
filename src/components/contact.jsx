@@ -1,22 +1,17 @@
-"use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Send, Mail, MapPin, ArrowUpRight } from "lucide-react";
-import { useTheme } from "./theme-provider";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const { mounted } = useTheme();
-
-  if (!mounted) return null;
 
   return (
-    <section id="contact" className="py-32 relative">
-      <div className="container px-6 mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-24">
+    <section id="contact" className="py-24 md:py-32 relative">
+      <div className="container px-4 md:px-6 mx-auto max-w-7xl">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
 
           <motion.div
             initial={{ opacity: 0, x: -30 }}

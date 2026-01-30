@@ -1,11 +1,9 @@
-"use client";
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useMotionValue, useTransform, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Github, ExternalLink, Star, GitFork, Calendar, ArrowRight, Code2 } from "lucide-react";
-import { useTheme } from "./theme-provider";
 import Magnetic from "./ui/Magnetic";
 
 const FALLBACK_REPOS = [
@@ -186,7 +184,6 @@ function ProjectCard({ repo, index, isDark, isFeatured }) {
 export default function Projects() {
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { mounted } = useTheme();
 
   const GITHUB_USERNAME = import.meta.env.VITE_GITHUB_USERNAME || "ahmed9088";
   const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
@@ -215,8 +212,6 @@ export default function Projects() {
     };
     fetchRepos();
   }, [GITHUB_USERNAME, GITHUB_TOKEN]);
-
-  if (!mounted) return null;
 
   return (
     <section id="projects" className="py-24 md:py-40 relative overflow-hidden">
@@ -265,13 +260,13 @@ export default function Projects() {
         </header>
 
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
             {[1, 2, 3].map(i => (
               <div key={i} className={`aspect-[4/5] bg-muted/20 animate-pulse rounded-[2rem] ${i === 1 ? "md:col-span-2" : ""}`} />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
             {repos.slice(0, 5).map((repo, idx) => (
               <ProjectCard
                 key={repo.id}

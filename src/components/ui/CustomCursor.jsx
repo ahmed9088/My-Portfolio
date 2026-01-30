@@ -1,8 +1,8 @@
-"use client";
 import { useEffect, useState } from "react";
 import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
 
 export default function CustomCursor() {
+  const [isTouchDevice, setIsTouchDevice] = useState(true);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   const [cursorState, setCursorState] = useState("default"); // default, hover, project, drag
@@ -13,6 +13,8 @@ export default function CustomCursor() {
   const y = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    // Check if it's a touch device
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
     const moveCursor = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -46,6 +48,9 @@ export default function CustomCursor() {
       window.removeEventListener("mouseover", handleMouseOver);
     };
   }, []);
+
+  // Don't render on touch devices
+  if (isTouchDevice) return null;
 
   return (
     <motion.div

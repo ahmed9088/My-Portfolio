@@ -1,11 +1,8 @@
-"use client";
 import { useEffect, useState, useRef } from "react";
 import { motion, useSpring, useMotionValue } from "framer-motion";
-import { useTheme } from "./theme-provider.jsx";
 
 export default function Background({ children }) {
-  const [mounted, setMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -14,8 +11,6 @@ export default function Background({ children }) {
   const lastY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    setMounted(true);
-
     // Check if mobile
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -36,9 +31,7 @@ export default function Background({ children }) {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener('resize', checkMobile);
     };
-  }, [isMobile]);
-
-  if (!mounted) return null;
+  }, [isMobile, mouseX, mouseY]);
 
   return (
     <>

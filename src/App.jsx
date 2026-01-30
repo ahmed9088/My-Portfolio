@@ -30,25 +30,31 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    // Initialize Lenis Smooth Scroll
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
-    });
+    // Disable smooth scroll on mobile for better performance
+    const isMobile = 'ontouchstart' in window || window.innerWidth < 768;
 
-    function raf(time) {
-      lenis.raf(time);
+    let lenis;
+    if (!isMobile) {
+      // Initialize Lenis Smooth Scroll only on desktop
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
       requestAnimationFrame(raf);
     }
-
-    requestAnimationFrame(raf);
 
     // Section Observer
     const observer = new IntersectionObserver(
@@ -66,7 +72,7 @@ export default function App() {
     });
 
     return () => {
-      lenis.destroy();
+      if (lenis) lenis.destroy();
       observer.disconnect();
     };
   }, []);

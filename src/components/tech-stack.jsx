@@ -1,10 +1,8 @@
-"use client";
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import Magnetic from "./ui/Magnetic";
 import { Code, Server, Wrench, Cpu, Layout, Boxes } from "lucide-react";
-import { useTheme } from "./theme-provider";
 
 const techIcons = {
   html: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
@@ -52,16 +50,13 @@ const categories = [
 ];
 
 export default function TechStack() {
-  const { mounted } = useTheme();
-  if (!mounted) return null;
-
   return (
-    <section id="skills" className="py-40 relative overflow-hidden bg-background">
-      <div className="container px-6 relative z-10 mx-auto max-w-7xl">
-        <header className="mb-32 text-left flex flex-col md:flex-row md:items-end justify-between gap-12">
+    <section id="skills" className="py-24 md:py-40 relative overflow-hidden bg-background">
+      <div className="container px-4 md:px-6 relative z-10 mx-auto max-w-7xl">
+        <header className="mb-16 md:mb-24 text-left flex flex-col md:flex-row md:items-end justify-between gap-8 md:gap-12">
           <div>
-            <span className="text-primary font-mono text-xs uppercase tracking-[0.4em] mb-6 block">03 // THE ENGINE</span>
-            <h2 className="text-7xl md:text-9xl font-black tracking-tightest leading-none">ARCHIVE</h2>
+            <span className="text-primary font-mono text-xs uppercase tracking-[0.4em] mb-4 md:mb-6 block">03 // THE ENGINE</span>
+            <h2 className="text-5xl md:text-7xl lg:text-9xl font-black tracking-tightest leading-none">ARCHIVE</h2>
           </div>
           <p className="max-w-xs text-muted-foreground text-lg font-light leading-relaxed serif italic">
             A comprehensive index of technical artifacts and sub-systems utilized in project execution.

@@ -1,7 +1,8 @@
 "use client";
 import { useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import Magnetic from "./ui/Magnetic";
 import { Badge } from "./ui/badge";
 import { Card, CardContent } from "./ui/card";
 import {
@@ -93,38 +94,48 @@ export default function TechStack() {
         </header>
 
         <Tabs defaultValue="frontend" className="w-full">
-          <TabsList className="flex justify-center bg-transparent gap-4 mb-16 h-auto p-0">
+          <TabsList className="flex justify-center bg-transparent gap-4 mb-16 h-auto p-0 flex-wrap">
             {categories.map((cat) => (
-              <TabsTrigger
-                key={cat.id}
-                value={cat.id}
-                className="px-8 py-4 rounded-full border-2 data-[state=active]:bg-foreground data-[state=active]:text-background transition-all font-bold"
-              >
-                {cat.name}
-              </TabsTrigger>
+              <Magnetic key={cat.id}>
+                <TabsTrigger
+                  key={cat.id}
+                  value={cat.id}
+                  className="px-8 py-4 rounded-full border-2 border-border/50 data-[state=active]:border-primary data-[state=active]:bg-primary/10 data-[state=active]:text-primary transition-all duration-300 font-bold"
+                >
+                  {cat.name}
+                </TabsTrigger>
+              </Magnetic>
             ))}
           </TabsList>
 
-          {categories.map((cat) => (
-            <TabsContent key={cat.id} value={cat.id} className="mt-0 outline-none">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
-                {cat.skills.map((skill, idx) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.05 }}
-                    className="flex flex-col items-center gap-4 group"
-                  >
-                    <div className="w-20 h-20 rounded-3xl bg-muted flex items-center justify-center p-5 group-hover:scale-110 transition-transform duration-500">
-                      <img src={skill.icon} alt={skill.name} className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" />
-                    </div>
-                    <span className="text-sm font-bold opacity-60 group-hover:opacity-100 transition-opacity">{skill.name}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </TabsContent>
-          ))}
+          <AnimatePresence mode="wait">
+            {categories.map((cat) => (
+              <TabsContent key={cat.id} value={cat.id} className="mt-0 outline-none">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
+                  className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6"
+                >
+                  {cat.skills.map((skill, idx) => (
+                    <motion.div
+                      key={skill.name}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.05 }}
+                      className="flex flex-col items-center gap-4 group"
+                    >
+                      <div className="w-20 h-20 rounded-3xl bg-muted flex items-center justify-center p-5 group-hover:scale-110 transition-transform duration-500">
+                        <img src={skill.icon} alt={skill.name} className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" />
+                      </div>
+                      <span className="text-sm font-bold opacity-60 group-hover:opacity-100 transition-opacity">{skill.name}</span>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </TabsContent>
+            ))}
+          </AnimatePresence>
         </Tabs>
       </div>
     </section>

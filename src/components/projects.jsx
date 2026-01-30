@@ -129,7 +129,7 @@ export default function Projects() {
   const [loading, setLoading] = useState(true);
   const { isDark, mounted } = useTheme();
 
-  const GITHUB_USERNAME = import.meta.env.VITE_GITHUB_USERNAME;
+  const GITHUB_USERNAME = import.meta.env.VITE_GITHUB_USERNAME || "ahmed9088";
   const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
   useEffect(() => {
@@ -139,7 +139,7 @@ export default function Projects() {
           headers: GITHUB_TOKEN ? { Authorization: `token ${GITHUB_TOKEN}` } : {},
         });
         const sortedRepos = res.data
-          .filter(r => !r.archived && !r.fork)
+          .filter(r => !r.archived) // Removed !r.fork to show more projects if needed
           .sort((a, b) => (b.stargazers_count + b.forks_count) - (a.stargazers_count + a.forks_count));
         setRepos(sortedRepos);
         setLoading(false);

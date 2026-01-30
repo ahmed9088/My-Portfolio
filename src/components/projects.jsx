@@ -33,6 +33,14 @@ function ProjectCard({ repo, index, isDark, isFeatured }) {
     y.set(0);
   };
 
+  // Microlink Screenshot API
+  const getPreviewUrl = (url) => {
+    if (!url) return null;
+    return `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`;
+  };
+
+  const previewUrl = getPreviewUrl(repo.homepage);
+
   return (
     <motion.div
       ref={cardRef}
@@ -49,12 +57,45 @@ function ProjectCard({ repo, index, isDark, isFeatured }) {
       <Card className={`h-full flex flex-col glass-card overflow-hidden relative group transition-all duration-500 ${isHovered ? "shadow-primary/20 scale-[1.02]" : ""}`}>
         <div className="shimmer-overlay" />
 
+        {/* Project Preview Image */}
+        <div className="relative aspect-video overflow-hidden border-b border-white/5">
+          {previewUrl ? (
+            <img
+              src={previewUrl}
+              alt={repo.name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                if (e.target.nextSibling) e.target.nextSibling.classList.remove('hidden');
+              }}
+            />
+          ) : null}
+          <div className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-purple-500/20 ${previewUrl ? 'hidden' : 'flex'}`}>
+            <div className="flex flex-col items-center gap-4 opacity-40">
+              <Code2 className="h-12 w-12" />
+              <span className="text-xs font-mono uppercase tracking-widest">Digital Laboratory</span>
+            </div>
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
+
+          <div className="absolute top-4 right-4 z-20">
+            {repo.homepage ? (
+              <Badge className="bg-primary/90 text-white backdrop-blur-md border-none px-3 py-1 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                Live Preview
+              </Badge>
+            ) : (
+              <Badge variant="outline" className="bg-white/5 text-white/50 backdrop-blur-md border-white/10 px-3 py-1">
+                Source Only
+              </Badge>
+            )}
+          </div>
+        </div>
+
         <CardContent className="p-8 md:p-10 flex-grow relative z-10">
           <div className="flex justify-between items-start mb-8">
             <div className="flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-primary/10 text-primary">
-                <Code2 className="h-6 w-6" />
-              </div>
               <div>
                 <h3 className={`font-bold tracking-tight ${isFeatured ? "text-3xl md:text-4xl" : "text-2xl"}`}>
                   {repo.name}

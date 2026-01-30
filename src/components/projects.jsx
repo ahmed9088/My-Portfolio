@@ -11,35 +11,35 @@ import Magnetic from "./ui/Magnetic";
 const FALLBACK_REPOS = [
   {
     id: 1,
-    name: "Architectural Folio",
-    description: "A high-end studio portfolio focused on fluid motion and boutique aesthetics.",
+    name: "My-Portfolio",
+    description: "Personal portfolio website showcasing my work and skills. Built with React and lots of coffee.",
     language: "React",
     stargazers_count: 12,
     forks_count: 4,
     updated_at: new Date().toISOString(),
-    html_url: "#",
+    html_url: "https://github.com/ahmed9088/My-Portfolio",
     homepage: "https://ahmed-saffar.vercel.app"
   },
   {
     id: 2,
-    name: "Neural Nexus",
-    description: "An experimental AI interface leveraging advanced vector processing.",
-    language: "TypeScript",
+    name: "Web-Projects",
+    description: "Collection of small web experiments and learning projects. Some good, some... learning experiences!",
+    language: "JavaScript",
     stargazers_count: 8,
     forks_count: 2,
     updated_at: new Date().toISOString(),
-    html_url: "#",
+    html_url: "https://github.com/ahmed9088",
     homepage: null
   },
   {
     id: 3,
-    name: "Quantum Ledger",
-    description: "Distributed systems architecture for secure digital asset management.",
-    language: "Go",
-    stargazers_count: 24,
-    forks_count: 12,
+    name: "Code-Playground",
+    description: "Where I test new ideas and break things before building them properly.",
+    language: "TypeScript",
+    stargazers_count: 5,
+    forks_count: 1,
     updated_at: new Date().toISOString(),
-    html_url: "#",
+    html_url: "https://github.com/ahmed9088",
     homepage: null
   }
 ];
@@ -227,46 +227,40 @@ export default function Projects() {
       </div>
 
       <div className="container px-6 relative z-10 mx-auto max-w-7xl">
-        <header className="mb-20 md:mb-32">
+        <header className="mb-16 md:mb-24">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center md:text-left"
+            className="text-center md:text-left mb-8"
           >
-            <span className="text-primary font-mono text-xs uppercase tracking-[0.4em] mb-6 block">
-              <span className="opacity-50">03 //</span> SELECTED PRODUCTIONS
-            </span>
-            <h2 className="text-5xl md:text-9xl font-black tracking-tighter leading-none mb-10 uppercase">
-              PROJECTS
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
+              My Projects
             </h2>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+              A few things I've built recently. Check them out and let me know what you think!
+            </p>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-12"
+            className="flex justify-center md:justify-end"
           >
-            <p className="max-w-xl text-muted-foreground text-lg md:text-2xl font-light leading-relaxed text-center md:text-left">
-              Merging technical excellence with purposeful design. A collection of experimental digital products and open-source contributions.
-            </p>
-
-            <div className="flex justify-center md:justify-end w-full md:w-auto">
-              <Magnetic>
-                <a
-                  href={`https://github.com/${GITHUB_USERNAME}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-3 text-sm md:text-lg font-bold hover:text-primary transition-colors py-4 px-8 rounded-full border border-primary/20 hover:border-primary/50"
-                >
-                  View GitHub
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </Magnetic>
-            </div>
+            <Magnetic>
+              <a
+                href={`https://github.com/${GITHUB_USERNAME}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2 text-sm md:text-base font-semibold hover:text-primary transition-colors py-3 px-6 rounded-full border border-border hover:border-primary/50"
+              >
+                View More on GitHub
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </Magnetic>
           </motion.div>
         </header>
 

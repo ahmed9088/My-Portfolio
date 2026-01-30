@@ -1,445 +1,161 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon, Github, Linkedin, Mail, ChevronDown } from "lucide-react";
-import { useTheme } from "./theme-provider"; // Import the useTheme hook
+import { Menu, X, Sun, Moon, Github, Linkedin, Mail, ArrowUpRight, Clock } from "lucide-react";
+import { useTheme } from "./theme-provider";
+import Magnetic from "./ui/Magnetic";
 
 export default function Header({ activeSection }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const headerRef = useRef(null);
+  const [time, setTime] = useState("");
   const lastScrollY = useRef(0);
   const scrollTimeout = useRef(null);
 
-  // Use the theme context instead of props
-  const { theme, resolvedTheme, setTheme, toggleTheme, resetToSystemTheme, isDark, isLight, isSystem, mounted } = useTheme();
+  const { theme, setTheme, isDark, mounted } = useTheme();
 
-  // Enhanced scroll detection with hide/show header on scroll
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 50);
 
-      // Set scrolled state for styling
-      setScrolled(currentScrollY > 20);
-
-      // Hide/show header based on scroll direction
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+      if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
       }
-
-      // Clear any existing timeout
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current);
-      }
-
-      // Show header when scrolling stops
-      scrollTimeout.current = setTimeout(() => {
-        setIsVisible(true);
-      }, 1000);
-
       lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current);
-      }
-    };
-  }, []);
-
-  // Close mobile menu when resizing to desktop
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768 && isOpen) {
-        setIsOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isOpen]);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (headerRef.current && !headerRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navigation = [
-    { name: "Home", href: "#home", id: "home" },
-    { name: "About", href: "#about", id: "about" },
-    { name: "Experience", href: "#experience", id: "experience" },
-    { name: "Skills", href: "#skills", id: "skills" },
-    { name: "Projects", href: "#projects", id: "projects" },
+    { name: "Folio", href: "#projects", id: "projects" },
+    { name: "Identity", href: "#about", id: "about" },
+    { name: "Culture", href: "#experience", id: "experience" },
     { name: "Contact", href: "#contact", id: "contact" },
   ];
 
-  const socialLinks = [
-    {
-      icon: <Github className="w-5 h-5" />,
-      href: "https://github.com/ahmed9088",
-      label: "GitHub",
-    },
-    {
-      icon: <Linkedin className="w-5 h-5" />,
-      href: "https://www.linkedin.com/in/ahmed-saffar-memon-b26298294",
-      label: "LinkedIn",
-    },
-    {
-      icon: <Mail className="w-5 h-5" />,
-      href: "mailto:memon1ahmed@gmail.com",
-      label: "Email",
-    },
-  ];
-
-  const headerVariants = {
-    hidden: { y: -100, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: -20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { type: "spring", stiffness: 300, damping: 24 },
-    },
-  };
-
-  const mobileMenuVariants = {
-    hidden: { opacity: 0, height: 0, y: -10 },
-    visible: {
-      opacity: 1,
-      height: "auto",
-      y: 0,
-      transition: {
-        duration: 0.3,
-        ease: [0.22, 1, 0.36, 1],
-        staggerChildren: 0.05,
-      },
-    },
-    exit: {
-      opacity: 0,
-      height: 0,
-      y: -10,
-      transition: {
-        duration: 0.2,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
-
-  const mobileItemVariants = {
-    hidden: { x: -10, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { type: "spring", stiffness: 300, damping: 24 },
-    },
-    exit: { x: -10, opacity: 0 },
-  };
-
-  const handleNavClick = (href) => {
-    setIsOpen(false);
-    // Smooth scroll to section
-    const element = document.querySelector(href);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 80, // Account for fixed header height
-        behavior: "smooth"
-      });
-    }
-  };
-
-  // Don't render until mounted to prevent hydration mismatch
   if (!mounted) return null;
 
   return (
     <motion.header
-      ref={headerRef}
-      variants={headerVariants}
-      initial="hidden"
-      animate={isVisible ? "visible" : "hidden"}
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled
-          ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-lg dark:shadow-primary/5 border-b border-gray-200/50 dark:border-slate-700/50"
-          : "bg-transparent"
+      initial={{ y: -100 }}
+      animate={{ y: isVisible ? 0 : -100 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed w-full top-0 z-50 transition-all duration-500 ${scrolled ? "py-4" : "py-8"
         }`}
     >
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Enhanced Logo */}
-          <motion.div
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex-shrink-0 relative"
-          >
-            <a
-              href="#"
-              className="text-2xl md:text-3xl font-bold relative"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick("#hero");
-              }}
-            >
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
-                Ahmed's Portfolio
-              </span>
-            </a>
-            {/* Subtle Glowing Background Effect */}
-            <motion.div
-              animate={{
-                opacity: [0.1, 0.2, 0.1],
-                scale: [1, 1.02, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-              className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-lg blur-sm opacity-10"
-            />
-          </motion.div>
+      <nav className="container mx-auto px-6 max-w-7xl">
+        <div className={`glass-card rounded-full px-6 py-3 flex items-center justify-between transition-all duration-500 ${scrolled ? "bg-background/80 backdrop-blur-xl border-border/50 shadow-2xl" : "bg-transparent border-transparent shadow-none"
+          }`}>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
+          {/* Minimal Identity */}
+          <div className="flex items-center gap-8">
+            <a href="#home" className="group flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center text-background font-black text-xs transition-transform group-hover:rotate-[360deg] duration-700">
+                AS
+              </div>
+              <span className="font-bold tracking-tightest uppercase text-sm hidden sm:block">Ahmed Saffar</span>
+            </a>
+
+            <div className="hidden lg:flex items-center gap-3 opacity-30 text-[10px] font-mono uppercase tracking-widest border-l border-border/50 pl-8">
+              <Clock className="w-3 h-3" />
+              <span>{time} PKT</span>
+            </div>
+          </div>
+
+          {/* Boutique Navigation */}
+          <div className="hidden md:flex items-center gap-2">
             {navigation.map((item) => (
-              <motion.a
-                key={item.name}
-                variants={itemVariants}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(item.href);
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                className={`relative px-3 py-2 text-sm font-medium rounded-full transition-all duration-300 group
-                  ${activeSection === item.id
-                    ? "text-white bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 shadow-sm"
-                    : "text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 dark:hover:from-blue-500 dark:hover:to-purple-500"
-                  }`}
-              >
-                {item.name}
-                <span
-                  className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-white transition-all duration-300 ${activeSection === item.id ? "opacity-100" : "opacity-0"
+              <Magnetic key={item.name}>
+                <a
+                  href={item.href}
+                  className={`px-4 py-2 text-[10px] font-mono uppercase tracking-[0.2em] transition-all relative group ${activeSection === item.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
                     }`}
-                />
-              </motion.a>
+                >
+                  {item.name}
+                  {activeSection === item.id && (
+                    <motion.div
+                      layoutId="nav-active"
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary"
+                    />
+                  )}
+                </a>
+              </Magnetic>
             ))}
           </div>
 
-          {/* Desktop Social Links & Theme Toggle */}
-          <motion.div variants={itemVariants} className="hidden md:flex items-center space-x-1 lg:space-x-2">
-            {socialLinks.map((link) => (
-              <motion.a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{
-                  scale: 1.15,
-                  rotate: 5,
-                  backgroundColor: isDark ? "rgba(99, 102, 241, 0.1)" : "rgba(99, 102, 241, 0.05)"
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="p-2 text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 dark:hover:from-blue-500 dark:hover:to-purple-500 transition-all rounded-full"
-                aria-label={link.label}
-              >
-                {link.icon}
-              </motion.a>
-            ))}
-
-            {/* Theme Toggle Dropdown */}
-            <div className="relative">
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9, rotate: 15 }}
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 dark:hover:from-blue-500 dark:hover:to-purple-500 transition-all relative"
-                aria-label="Toggle theme"
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={isDark ? "dark" : "light"}
-                    initial={{ y: 10, opacity: 0, rotate: -30 }}
-                    animate={{ y: 0, opacity: 1, rotate: 0 }}
-                    exit={{ y: -10, opacity: 0, rotate: 30 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                  </motion.div>
-                </AnimatePresence>
-              </motion.button>
-
-              {/* Theme Dropdown */}
-              <AnimatePresence>
-                {isDropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: -10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-gray-200 dark:border-slate-700 overflow-hidden z-50"
-                  >
-                    <button
-                      onClick={() => {
-                        setTheme("light");
-                        setIsDropdownOpen(false);
-                      }}
-                      className={`flex items-center w-full px-4 py-3 text-left text-sm ${isLight
-                          ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
-                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700"
-                        }`}
-                    >
-                      <Sun className="w-4 h-4 mr-3" />
-                      Light Mode
-                    </button>
-                    <button
-                      onClick={() => {
-                        setTheme("dark");
-                        setIsDropdownOpen(false);
-                      }}
-                      className={`flex items-center w-full px-4 py-3 text-left text-sm ${isDark
-                          ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
-                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700"
-                        }`}
-                    >
-                      <Moon className="w-4 h-4 mr-3" />
-                      Dark Mode
-                    </button>
-                    <div className="border-t border-gray-200 dark:border-slate-700 my-1"></div>
-                    <button
-                      onClick={() => {
-                        resetToSystemTheme();
-                        setIsDropdownOpen(false);
-                      }}
-                      className={`flex items-center w-full px-4 py-3 text-left text-sm ${isSystem
-                          ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
-                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700"
-                        }`}
-                    >
-                      <div className="w-4 h-4 mr-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                      System Theme
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center space-x-2">
-            {/* Mobile Menu Toggle */}
-            <motion.button
-              variants={itemVariants}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 transition-colors"
-              aria-label="Toggle menu"
+          {/* Action Area */}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setTheme(isDark ? "light" : "dark")}
+              className="p-2 hover:bg-muted rounded-full transition-colors opacity-60 hover:opacity-100"
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={isOpen ? "open" : "closed"}
-                  initial={{ rotate: isOpen ? -45 : 45, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                </motion.div>
-              </AnimatePresence>
-            </motion.button>
+              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+            <div className="h-4 w-[1px] bg-border/50 hidden sm:block" />
+            <a
+              href="https://github.com/ahmed9088"
+              target="_blank"
+              className="text-[10px] font-mono uppercase tracking-widest hidden sm:flex items-center gap-2 opacity-60 hover:opacity-100 transition-opacity"
+            >
+              Github <ArrowUpRight className="w-3 h-3" />
+            </a>
+
+            {/* Mobile Toggle */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2"
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
+        {/* Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              variants={mobileMenuVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="md:hidden overflow-hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-gray-200/50 dark:border-slate-700/50 rounded-b-xl shadow-lg"
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              className="absolute top-full left-6 right-6 mt-4 p-8 glass-card rounded-[2rem] md:hidden shadow-3xl"
             >
-              <div className="px-2 pt-2 pb-4 space-y-1">
-                {navigation.map((item) => (
+              <div className="flex flex-col gap-8">
+                {navigation.map((item, i) => (
                   <motion.a
                     key={item.name}
-                    variants={mobileItemVariants}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
                     href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(item.href);
-                    }}
-                    className={`flex items-center justify-between px-4 py-3 text-base font-medium rounded-lg transition-colors
-                      ${activeSection === item.id
-                        ? "text-white bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500"
-                        : "text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 dark:hover:from-blue-500 dark:hover:to-purple-500"
-                      }`}
+                    onClick={() => setIsOpen(false)}
+                    className="text-4xl font-black uppercase tracking-tightest hover:text-primary transition-colors flex justify-between items-center"
                   >
                     {item.name}
-                    {activeSection === item.id && (
-                      <motion.div
-                        layout
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="w-2 h-2 rounded-full bg-white"
-                      />
-                    )}
+                    <span className="text-xs opacity-20 font-mono italic serif lowercase">0{i + 1}</span>
                   </motion.a>
                 ))}
-              </div>
-
-              <div className="px-4 pt-4 pb-6 border-t border-gray-200/50 dark:border-slate-700/50">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">Connect</h3>
-                  <button
-                    onClick={toggleTheme}
-                    className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 transition-colors"
-                    aria-label="Toggle theme"
-                  >
-                    {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                  </button>
-                </div>
-                <div className="flex items-center justify-center gap-4">
-                  {socialLinks.map((link) => (
-                    <motion.a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      variants={mobileItemVariants}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="p-3 text-gray-700 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 dark:hover:from-blue-500 dark:hover:to-purple-500 transition-all rounded-full"
-                      aria-label={link.label}
-                    >
-                      {link.icon}
-                    </motion.a>
-                  ))}
+                <div className="pt-8 border-t border-border flex justify-between items-center">
+                  <div className="flex gap-4">
+                    <Github className="w-5 h-5 opacity-40" />
+                    <Linkedin className="w-5 h-5 opacity-40" />
+                  </div>
+                  <span className="text-[10px] font-mono opacity-40">2026 // Ahmed Saffar Folio</span>
                 </div>
               </div>
             </motion.div>

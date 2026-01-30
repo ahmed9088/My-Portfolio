@@ -3,15 +3,7 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import Magnetic from "./ui/Magnetic";
-import { Badge } from "./ui/badge";
-import { Card, CardContent } from "./ui/card";
-import {
-  Code,
-  Server,
-  Database,
-  Wrench,
-  Zap,
-} from "lucide-react";
+import { Code, Server, Wrench, Cpu, Layout, Boxes } from "lucide-react";
 import { useTheme } from "./theme-provider";
 
 const techIcons = {
@@ -20,61 +12,41 @@ const techIcons = {
   javascript: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
   typescript: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
   react: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-  angular: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
-  vue: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
+  next: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
   php: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
   laravel: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg",
-  flutter: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
   mysql: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
   mongodb: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-  firebase: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
   tailwind: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg",
-  figma: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-  bootstrap: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
-  java: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
-  python: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-  csharp: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
-  postgresql: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
   git: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
   docker: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-  kubernetes: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",
-  aws: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
+  python: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  flutter: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
 };
 
 const categories = [
   {
-    id: "frontend",
-    name: "Frontend",
-    icon: <Code className="w-4 h-4" />,
+    id: "engineering",
+    name: "Architectures",
+    icon: <Cpu className="w-4 h-4" />,
     skills: [
-      { name: "React", icon: techIcons.react },
-      { name: "Angular", icon: techIcons.angular },
+      { name: "React / Next.js", icon: techIcons.react },
+      { name: "PHP / Laravel", icon: techIcons.laravel },
       { name: "TypeScript", icon: techIcons.typescript },
-      { name: "JavaScript", icon: techIcons.javascript },
-      { name: "Tailwind", icon: techIcons.tailwind },
-      { name: "HTML/CSS", icon: techIcons.html },
-    ],
-  },
-  {
-    id: "backend",
-    name: "Backend",
-    icon: <Server className="w-4 h-4" />,
-    skills: [
-      { name: "Java", icon: techIcons.java },
-      { name: "PHP", icon: techIcons.php },
-      { name: "Laravel", icon: techIcons.laravel },
+      { name: "Flutter", icon: techIcons.flutter },
       { name: "Python", icon: techIcons.python },
     ],
   },
   {
-    id: "infra",
-    name: "Infra",
-    icon: <Wrench className="w-4 h-4" />,
+    id: "foundations",
+    name: "Sub-Systems",
+    icon: <Boxes className="w-4 h-4" />,
     skills: [
-      { name: "Git", icon: techIcons.git },
+      { name: "PostgreSQL / MySQL", icon: techIcons.mysql },
+      { name: "MongoDB", icon: techIcons.mongodb },
+      { name: "Tailwind CSS", icon: techIcons.tailwind },
       { name: "Docker", icon: techIcons.docker },
-      { name: "Kubernetes", icon: techIcons.kubernetes },
-      { name: "AWS", icon: techIcons.aws },
+      { name: "Git", icon: techIcons.git },
     ],
   },
 ];
@@ -84,59 +56,77 @@ export default function TechStack() {
   if (!mounted) return null;
 
   return (
-    <section id="skills" className="py-32 relative overflow-hidden">
-      <div className="container px-6 relative z-10 mx-auto max-w-5xl">
-        <header className="mb-20 text-center">
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 uppercase">STACK</h2>
-          <p className="text-muted-foreground text-lg font-light max-w-xl mx-auto">
-            A bridge between design and engineering. My toolkit for building scalable digital solutions.
+    <section id="skills" className="py-40 relative overflow-hidden bg-background">
+      <div className="container px-6 relative z-10 mx-auto max-w-7xl">
+        <header className="mb-32 text-left flex flex-col md:flex-row md:items-end justify-between gap-12">
+          <div>
+            <span className="text-primary font-mono text-xs uppercase tracking-[0.4em] mb-6 block">03 // THE ENGINE</span>
+            <h2 className="text-7xl md:text-9xl font-black tracking-tightest leading-none">ARCHIVE</h2>
+          </div>
+          <p className="max-w-xs text-muted-foreground text-lg font-light leading-relaxed serif italic">
+            A comprehensive index of technical artifacts and sub-systems utilized in project execution.
           </p>
         </header>
 
-        <Tabs defaultValue="frontend" className="w-full">
-          <TabsList className="flex justify-center bg-transparent gap-4 mb-16 h-auto p-0 flex-wrap">
+        <div className="grid lg:grid-cols-[1fr_2fr] gap-20">
+          <div className="flex flex-col gap-12">
             {categories.map((cat) => (
-              <Magnetic key={cat.id}>
-                <TabsTrigger
-                  key={cat.id}
-                  value={cat.id}
-                  className="px-8 py-4 rounded-full border-2 border-border/50 data-[state=active]:border-primary data-[state=active]:bg-primary/10 data-[state=active]:text-primary transition-all duration-300 font-bold"
-                >
-                  {cat.name}
-                </TabsTrigger>
-              </Magnetic>
-            ))}
-          </TabsList>
+              <div key={cat.id} className="relative">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                    {cat.icon}
+                  </div>
+                  <h3 className="text-2xl font-black uppercase tracking-widest">{cat.name}</h3>
+                </div>
 
-          <AnimatePresence mode="wait">
-            {categories.map((cat) => (
-              <TabsContent key={cat.id} value={cat.id} className="mt-0 outline-none">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6"
-                >
+                <div className="space-y-4">
                   {cat.skills.map((skill, idx) => (
                     <motion.div
                       key={skill.name}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.05 }}
-                      className="flex flex-col items-center gap-4 group"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      viewport={{ once: true }}
+                      className="flex items-center justify-between p-4 glass-card group hover:bg-foreground hover:text-background transition-all"
                     >
-                      <div className="w-20 h-20 rounded-3xl bg-muted flex items-center justify-center p-5 group-hover:scale-110 transition-transform duration-500">
-                        <img src={skill.icon} alt={skill.name} className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" />
+                      <div className="flex items-center gap-4">
+                        <div className="w-8 h-8 p-1 opacity-60 group-hover:opacity-100 group-hover:invert transition-all">
+                          <img src={skill.icon} alt={skill.name} className="w-full h-full object-contain" />
+                        </div>
+                        <span className="text-sm font-bold tracking-tight uppercase">{skill.name}</span>
                       </div>
-                      <span className="text-sm font-bold opacity-60 group-hover:opacity-100 transition-opacity">{skill.name}</span>
+                      <span className="text-[10px] font-mono opacity-20 group-hover:opacity-40 uppercase">Sys // 0{idx + 1}</span>
                     </motion.div>
                   ))}
-                </motion.div>
-              </TabsContent>
+                </div>
+              </div>
             ))}
-          </AnimatePresence>
-        </Tabs>
+          </div>
+
+          <div className="hidden lg:block relative">
+            <div className="sticky top-40 aspect-square w-full glass-card flex items-center justify-center p-20 overflow-hidden">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 opacity-[0.03] pointer-events-none"
+              >
+                <div className="w-full h-full border-[100px] border-foreground rounded-full border-dashed" />
+              </motion.div>
+
+              <div className="text-center relative z-10">
+                <Layout className="w-20 h-20 mb-8 mx-auto opacity-10" />
+                <h4 className="text-4xl font-black uppercase tracking-tightest mb-4">Technical <br /> Mastery</h4>
+                <p className="text-muted-foreground font-light max-w-[200px] mx-auto uppercase text-[10px] tracking-[0.5em] leading-relaxed">
+                  Optimized architectures for high-performance scale.
+                </p>
+              </div>
+
+              {/* Decorative dots */}
+              <div className="absolute top-10 left-10 w-2 h-2 rounded-full bg-primary animate-ping" />
+              <div className="absolute bottom-10 right-10 w-2 h-2 rounded-full bg-primary/20" />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

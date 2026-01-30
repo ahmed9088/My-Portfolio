@@ -49,7 +49,7 @@ export default function Hero() {
               className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tighter"
             >
               CRAFTING <br />
-              <span className="text-primary">DIGITAL</span> <br />
+              <span className="text-gradient">DIGITAL</span> <br />
               EXPERIENCES
             </motion.h1>
 

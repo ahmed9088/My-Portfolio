@@ -1,13 +1,21 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import cvFile from "../assets/documents/My Resume.pdf";
 import { Button } from "./ui/button";
-import { Download, Github, Linkedin, Twitter, Mail, ExternalLink, Code, Palette, ArrowRight, MapPin, Clock } from "lucide-react";
+import { Download, Github, Linkedin, ArrowRight, Clock } from "lucide-react";
 import myImage from "../assets/images/ahmed.png";
 import { useState, useEffect } from "react";
 import Magnetic from "./ui/Magnetic";
 
+const roles = [
+  "Full Stack Developer",
+  "React & Next.js Engineer",
+  "UI/UX Enthusiast",
+  "Open Source Builder",
+];
+
 export default function Hero() {
   const [time, setTime] = useState("");
+  const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
     const updateTime = () => {
@@ -20,6 +28,13 @@ export default function Hero() {
     };
     updateTime();
     const interval = setInterval(updateTime, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 2800);
     return () => clearInterval(interval);
   }, []);
 
@@ -58,6 +73,27 @@ export default function Hero() {
               Hey, I'm Ahmed 👋
             </motion.h1>
 
+            {/* Rotating role typewriter */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.35 }}
+              className="h-10 flex items-center justify-center lg:justify-start overflow-hidden"
+            >
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={roleIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                  className="text-xl md:text-2xl font-bold text-primary"
+                >
+                  {roles[roleIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </motion.div>
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -85,14 +121,47 @@ export default function Hero() {
                 </Button>
               </Magnetic>
               <Magnetic>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full px-8 py-6 text-base font-bold"
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: 'smooth' })}
+                <a href={cvFile} download="Ahmed_Saffar_Resume.pdf">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="rounded-full px-8 py-6 text-base font-bold group"
+                  >
+                    Download CV
+                    <Download className="ml-2 w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+                  </Button>
+                </a>
+              </Magnetic>
+            </motion.div>
+
+            {/* Social links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.75 }}
+              className="flex items-center gap-4 justify-center lg:justify-start"
+            >
+              <Magnetic>
+                <a
+                  href="https://github.com/ahmed9088"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-full border border-border hover:bg-foreground hover:text-background transition-all"
+                  aria-label="GitHub profile"
                 >
-                  Get in Touch
-                </Button>
+                  <Github className="w-5 h-5" />
+                </a>
+              </Magnetic>
+              <Magnetic>
+                <a
+                  href="https://www.linkedin.com/in/ahmed-saffar-memon-b26298294"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-full border border-border hover:bg-foreground hover:text-background transition-all"
+                  aria-label="LinkedIn profile"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </a>
               </Magnetic>
             </motion.div>
           </div>

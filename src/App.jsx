@@ -1,10 +1,12 @@
 import { useState, useEffect, lazy, Suspense } from "react";
+import { AnimatePresence } from "framer-motion";
 import Lenis from "lenis";
 import { ThemeProvider } from "./components/theme-provider.jsx";
 import CustomCursor from "./components/ui/CustomCursor";
 import ScrollProgress from "./components/ui/ScrollProgress";
 import Header from "./components/header.jsx";
 import Background from "./components/Background";
+import LoadingScreen from "./components/LoadingScreen";
 
 // Lazy loaded components for better performance
 const Hero = lazy(() => import("./components/hero.jsx"));
@@ -26,8 +28,16 @@ const LoadingSection = () => (
   </div>
 );
 
+const LOADING_SCREEN_DURATION = 1800;
+
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), LOADING_SCREEN_DURATION);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     // Disable smooth scroll on mobile for better performance
@@ -79,6 +89,9 @@ export default function App() {
 
   return (
     <ThemeProvider defaultTheme="dark">
+      <AnimatePresence mode="wait">
+        {isLoading && <LoadingScreen key="loading" />}
+      </AnimatePresence>
       <div className="selection:bg-primary/20">
         <CustomCursor />
         <ScrollProgress />

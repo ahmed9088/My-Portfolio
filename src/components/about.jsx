@@ -1,9 +1,18 @@
 import { motion } from "framer-motion";
-import { Sparkles, Code, Database, Smartphone, Palette, ArrowRight, Quote, Globe, Cpu, MapPin, Zap, Layout } from "lucide-react";
+import { MapPin, Zap, Code } from "lucide-react";
+
+const skills = [
+  { name: "React & Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "PHP / Laravel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" },
+  { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
+  { name: "MySQL / MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+  { name: "Git & Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+  { name: "Flutter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" },
+  { name: "UI/UX Design", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+];
 
 export default function About() {
-  const skills = ["React & Next.js", "TypeScript", "Node.js", "UI/UX Design"];
-
   return (
     <section id="about" className="py-20 md:py-32 relative overflow-hidden bg-background">
       <div className="container px-4 md:px-6 relative z-10 mx-auto max-w-6xl">
@@ -98,14 +107,17 @@ export default function About() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {skills.map((skill, i) => (
               <motion.div
-                key={skill}
+                key={skill.name}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center p-6 rounded-2xl border border-border hover:border-primary/50 transition-colors"
+                className="flex flex-col items-center gap-3 p-6 rounded-2xl border border-border hover:border-primary/50 hover:bg-primary/5 transition-all group"
               >
-                <p className="font-semibold">{skill}</p>
+                <div className="w-10 h-10 group-hover:scale-110 transition-transform">
+                  <img src={skill.icon} alt={skill.name} className="w-full h-full object-contain" loading="lazy" />
+                </div>
+                <p className="font-semibold text-sm text-center">{skill.name}</p>
               </motion.div>
             ))}
           </div>

@@ -101,11 +101,6 @@ export function ThemeProvider({ children, defaultTheme = "system" }) {
   useEffect(() => {
     if (typeof window === "undefined" || theme !== "system") return;
     
-    // Clean up previous media query if exists
-    if (mediaQueryRef.current) {
-      mediaQueryRef.current.removeEventListener("change", handleSystemThemeChange);
-    }
-    
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     mediaQueryRef.current = mediaQuery;
     

@@ -5,34 +5,20 @@ import { ChevronUp } from "lucide-react";
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Show button when page is scrolled down
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 500) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.scrollY > 500);
     };
-
-    window.addEventListener("scroll", toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
-
-  // Scroll to top smoothly
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  };
 
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
@@ -40,7 +26,7 @@ export default function ScrollToTop() {
           whileTap={{ scale: 0.9 }}
           aria-label="Scroll to top"
         >
-          <ChevronUp className="w-6 h-6" />
+          <ChevronUp className="w-5 h-5" />
         </motion.button>
       )}
     </AnimatePresence>

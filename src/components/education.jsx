@@ -1,85 +1,103 @@
 "use client";
 import { motion } from "framer-motion";
-import { Calendar, GraduationCap, Briefcase, MapPin, ArrowUpRight, Code2, Building2 } from "lucide-react";
 import { useTheme } from "./theme-provider";
+
+const experiences = [
+  {
+    period: "2022 — Present",
+    title: "Freelance Full Stack Developer",
+    company: "Self-Employed",
+    description:
+      "Helping individuals and businesses build web & mobile applications through Upwork, Fiverr, Facebook, LinkedIn, and many other platforms. Delivered 50+ projects ranging from landing pages to full-scale SaaS products using React, Next.js, Node.js, Laravel, and Flutter.",
+    type: "work",
+  },
+  {
+    period: "2024 — Present",
+    title: "BS Computer Science",
+    company: "GCU Hyderabad",
+    description:
+      "Studying core CS fundamentals, algorithms, data structures, and software engineering principles.",
+    type: "education",
+  },
+  {
+    period: "2023 — 2024",
+    title: "Technical Mentor",
+    company: "Aptech",
+    description:
+      "Mentored aspiring software developers, taught web development fundamentals, and helped students build real-world projects.",
+    type: "mentorship",
+  },
+  {
+    period: "2022 — 2025",
+    title: "ADSE — Full Stack Development",
+    company: "Aptech",
+    description:
+      "Advanced Diploma in Software Engineering. Mastered PHP, Laravel, Flutter, React, and full-stack web architecture.",
+    type: "education",
+  },
+];
 
 export default function Education() {
   const { mounted } = useTheme();
-
   if (!mounted) return null;
 
-  const experiences = [
-    {
-      period: "2024 — PRESENT",
-      title: "Software Engineering Scholar",
-      subtitle: "GCU Hyderabad",
-      desc: "Deep-diving into theoretical foundations and core computing principles.",
-      icon: <GraduationCap />,
-      type: "Academic"
-    },
-    {
-      period: "2022 — 2025",
-      title: "Full-Stack Specialist",
-      subtitle: "Aptech Defence",
-      desc: "Architecting boutique digital interfaces using PHP, Laravel, and Flutter.",
-      icon: <Code2 />,
-      type: "Research"
-    },
-    {
-      period: "2023 — 2024",
-      title: "Technical Mentor",
-      subtitle: "Aptech Defence",
-      desc: "Mentoring software aspirants and architecting educational web solutions.",
-      icon: <Building2 />,
-      type: "Studio"
-    },
-  ];
-
   return (
-    <section id="experience" className="py-40 relative bg-background/50 border-y border-border/50">
-      <div className="container px-6 relative z-10 mx-auto max-w-7xl">
-        <header className="mb-32 flex flex-col md:flex-row md:items-end justify-between gap-12 text-left">
-          <div>
-            <span className="text-primary font-mono text-xs uppercase tracking-[0.4em] mb-6 block">02 // THE JOURNEY</span>
-            <h2 className="text-7xl md:text-9xl font-black tracking-tightest leading-none">CULTURE</h2>
-          </div>
-          <p className="max-w-xs text-muted-foreground text-lg font-light leading-relaxed">
-            A chronological record of technical evolution and academic research.
-          </p>
-        </header>
+    <section id="experience" className="py-20 md:py-32">
+      <div className="container mx-auto px-6 max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <span className="section-label">Experience</span>
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+            My professional
+            <br />
+            <span className="text-muted-foreground">journey so far</span>
+          </h2>
+        </motion.div>
 
-        <div className="space-y-0">
+        <div className="max-w-3xl">
           {experiences.map((exp, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: i * 0.1 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="group relative grid md:grid-cols-[1fr_2fr] gap-12 py-16 border-t border-border/50 hover:bg-muted/5 transition-colors cursor-default text-left"
+              className="timeline-item"
             >
-              <div className="flex flex-col gap-4">
-                <span className="text-xs font-mono uppercase tracking-[0.5em] opacity-40">{exp.period}</span>
-                <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-mono uppercase tracking-widest px-3 py-1 bg-primary/10 text-primary rounded-full">{exp.type}</span>
+              <div className="card-dark p-6 md:p-8 ml-2">
+                <div className="flex flex-wrap items-center gap-3 mb-3">
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    {exp.period}
+                  </span>
+                  <span
+                    className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full ${
+                      exp.type === "work"
+                        ? "bg-primary/15 text-primary"
+                        : exp.type === "education"
+                        ? "bg-blue-500/15 text-blue-400"
+                        : "bg-purple-500/15 text-purple-400"
+                    }`}
+                  >
+                    {exp.type}
+                  </span>
                 </div>
-              </div>
-
-              <div className="relative">
-                <div className="flex justify-between items-start mb-6">
-                  <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter leading-none group-hover:text-primary transition-colors">
-                    {exp.title}
-                  </h3>
-                  <ArrowUpRight className="w-8 h-8 opacity-0 group-hover:opacity-40 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </div>
-                <h4 className="text-xl font-bold mb-6 opacity-60 italic serif lowercase">{exp.subtitle}</h4>
-                <p className="text-2xl text-muted-foreground font-light leading-snug max-w-2xl">
-                  {exp.desc}
+                <h3 className="text-xl md:text-2xl font-bold mb-1">
+                  {exp.title}
+                </h3>
+                <p className="text-primary font-semibold text-sm mb-3">
+                  {exp.company}
+                </p>
+                <p className="text-muted-foreground leading-relaxed text-sm">
+                  {exp.description}
                 </p>
               </div>
             </motion.div>
           ))}
-          <div className="border-t border-border/50 w-full" />
         </div>
       </div>
     </section>

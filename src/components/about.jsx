@@ -1,119 +1,140 @@
 import { motion } from "framer-motion";
-import { Sparkles, Code, Database, Smartphone, Palette, ArrowRight, Quote, Globe, Cpu, MapPin, Zap, Layout } from "lucide-react";
+import { Code, MapPin, Briefcase, Coffee } from "lucide-react";
+
+const stats = [
+  { number: "50+", label: "Projects Completed" },
+  { number: "4+", label: "Years Experience" },
+  { number: "30+", label: "Happy Clients" },
+  { number: "15+", label: "Technologies" },
+];
 
 export default function About() {
-  const skills = ["React & Next.js", "TypeScript", "Node.js", "UI/UX Design"];
-
   return (
-    <section id="about" className="py-20 md:py-32 relative overflow-hidden bg-background">
-      <div className="container px-4 md:px-6 relative z-10 mx-auto max-w-6xl">
-
+    <section id="about" className="py-20 md:py-32">
+      <div className="container mx-auto px-6 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">About Me</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            A bit about who I am and what I do
-          </p>
+          <span className="section-label">About Me</span>
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-12">
+            Passionate about creating
+            <br />
+            <span className="text-muted-foreground">digital experiences</span>
+          </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-16">
+        {/* Stats Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16"
+        >
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              viewport={{ once: true }}
+              className="stat-card"
+            >
+              <div className="stat-number">{stat.number}</div>
+              <div className="stat-label">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
 
-          {/* Main Bio */}
-          <motion.div
+        {/* Bio Section */}
+        <div className="grid md:grid-cols-2 gap-6">
+          <motion.article
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="glass-card p-8 md:p-10 space-y-6"
+            className="card-dark p-8 md:p-10"
           >
-            <h3 className="text-2xl font-bold mb-4">Hey there! 👋</h3>
+            <h3 className="text-xl font-bold mb-5 flex items-center gap-2">
+              <Coffee className="w-5 h-5 text-primary" />
+              Who I Am
+            </h3>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I'm Ahmed, a developer based in Karachi who loves building things for the web.
-                I've been coding for over 3 years and I'm still learning something new every day.
+                I'm Ahmed Saffar Memon, a Freelance Full Stack Web Developer
+                since 2022, helping individuals and businesses worldwide build
+                secure, clean, and responsive web applications through platforms
+                like <span className="text-foreground font-semibold">Upwork, Fiverr, LinkedIn, and Facebook</span>.
               </p>
               <p>
-                What excites me most? Creating user experiences that feel smooth, look great,
-                and actually work the way people expect them to. No confusing interfaces,
-                no unnecessary complexity—just clean, functional design.
+                I specialize in the MERN stack, Laravel, and Flutter for mobile.
+                I'm also passionate about UI/UX design, technical writing, and
+                creating user experiences that are both smooth and beautiful.
               </p>
               <p>
-                When I'm not coding, you'll find me exploring new technologies,
-                contributing to open source, or probably grabbing another cup of coffee. ☕
+                Over the years, I've worked with 30+ clients across different
+                industries — delivering everything from landing pages to
+                full-scale SaaS platforms.
               </p>
             </div>
-          </motion.div>
+          </motion.article>
 
-          {/* Quick Facts */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <div className="glass-card p-8">
-              <div className="flex items-center gap-3 mb-4">
+            <div className="card-dark p-8 flex items-start gap-4">
+              <div className="p-3 rounded-2xl bg-primary/10">
                 <MapPin className="w-5 h-5 text-primary" />
-                <h3 className="text-lg font-bold">Location</h3>
               </div>
-              <p className="text-2xl font-black">Karachi, Pakistan</p>
-              <p className="text-sm text-muted-foreground mt-2">Working with clients globally</p>
+              <div>
+                <h4 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-1">
+                  Location
+                </h4>
+                <p className="text-xl font-bold">Hyderabad, Pakistan</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Working with clients globally
+                </p>
+              </div>
             </div>
 
-            <div className="glass-card p-8">
-              <div className="flex items-center gap-3 mb-4">
-                <Zap className="w-5 h-5 text-primary" />
-                <h3 className="text-lg font-bold">Experience</h3>
+            <div className="card-dark p-8 flex items-start gap-4">
+              <div className="p-3 rounded-2xl bg-primary/10">
+                <Briefcase className="w-5 h-5 text-primary" />
               </div>
-              <p className="text-2xl font-black">3+ Years</p>
-              <p className="text-sm text-muted-foreground mt-2">Building web applications</p>
+              <div>
+                <h4 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-1">
+                  Current Role
+                </h4>
+                <p className="text-xl font-bold">Freelancer</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Full Stack Developer · Since 2022
+                </p>
+              </div>
             </div>
 
-            <div className="glass-card p-8">
-              <div className="flex items-center gap-3 mb-4">
+            <div className="card-dark p-8 flex items-start gap-4">
+              <div className="p-3 rounded-2xl bg-primary/10">
                 <Code className="w-5 h-5 text-primary" />
-                <h3 className="text-lg font-bold">Projects</h3>
               </div>
-              <p className="text-2xl font-black">50+ Built</p>
-              <p className="text-sm text-muted-foreground mt-2">Personal & client work</p>
+              <div>
+                <h4 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-1">
+                  Focus Areas
+                </h4>
+                <p className="text-xl font-bold">Web · Mobile · Design</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Full stack + UI/UX + Technical Writing
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
-
-        {/* Skills */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="glass-card p-8 md:p-10"
-        >
-          <h3 className="text-2xl font-bold mb-6">What I Work With</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {skills.map((skill, i) => (
-              <motion.div
-                key={skill}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center p-6 rounded-2xl border border-border hover:border-primary/50 transition-colors"
-              >
-                <p className="font-semibold">{skill}</p>
-              </motion.div>
-            ))}
-          </div>
-          <p className="text-sm text-muted-foreground mt-6 text-center">
-            And always exploring new tools and technologies
-          </p>
-        </motion.div>
-
       </div>
     </section>
   );

@@ -1,16 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: ["./index.html", "./src/**/*.{html,js,jsx,ts,tsx}", "*.{js,ts,jsx,tsx,mdx}"],
+  content: ["./index.html", "./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1.5rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1200px",
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -48,8 +51,11 @@ module.exports = {
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 8px)",
+        "2xl": "2rem",
+        "3xl": "2.5rem",
+        "4xl": "3rem",
       },
       keyframes: {
         "accordion-down": {
@@ -69,4 +75,3 @@ module.exports = {
   },
   plugins: [require("tailwindcss-animate")],
 };
-

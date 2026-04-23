@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import Lenis from "lenis";
+import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "./components/theme-provider.jsx";
 import CustomCursor from "./components/ui/CustomCursor";
 import ScrollProgress from "./components/ui/ScrollProgress";
@@ -97,6 +98,7 @@ export default function App() {
             </Suspense>
           </main>
         </Background>
+        <Analytics />
       </div>
     </ThemeProvider>
   );

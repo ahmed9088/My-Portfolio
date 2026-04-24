@@ -99,11 +99,15 @@ html {
   background: hsl(var(--card));
   border: 1px solid hsl(var(--border));
   border-radius: 2rem;
-  transition: all 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
 }
 
 .card-dark:hover {
   border-color: hsl(var(--primary) / 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px hsl(var(--primary) / 0.06);
 }
 
 /* Section label style (like "○ ABOUT ME") */
@@ -120,8 +124,18 @@ html {
 }
 
 .section-label::before {
-  content: "○";
-  font-size: 0.625rem;
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
 }
 
 /* Stat card */
@@ -131,12 +145,15 @@ html {
   border-radius: 2rem;
   padding: 2rem;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
 }
 
 .stat-card:hover {
   border-color: hsl(var(--primary) / 0.4);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px hsl(var(--primary) / 0.08);
 }
 
 .stat-number {
@@ -166,9 +183,9 @@ html {
 
 .skill-bar-fill {
   height: 100%;
-  background: hsl(var(--primary));
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary) / 0.7));
   border-radius: 3px;
-  transition: width 1s ease;
+  transition: width 1s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* Timeline */
@@ -194,6 +211,12 @@ html {
   border-radius: 50%;
   background: hsl(var(--primary));
   border: 2px solid hsl(var(--background));
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.timeline-item:hover::before {
+  box-shadow: 0 0 0 5px hsl(var(--primary) / 0.2);
 }
 
 /* Button styles */
@@ -208,7 +231,7 @@ html {
   font-weight: 600;
   font-size: 0.875rem;
   border-radius: 9999px;
-  transition: all 0.3s ease;
+  transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
   border: none;
   cursor: pointer;
   text-transform: uppercase;
@@ -217,8 +240,13 @@ html {
 
 .btn-primary:hover {
   filter: brightness(1.1);
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.02);
   box-shadow: 0 8px 24px hsl(var(--primary) / 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px hsl(var(--primary) / 0.2);
 }
 
 .btn-outline {
@@ -233,7 +261,7 @@ html {
   font-size: 0.875rem;
   border-radius: 9999px;
   border: 1px solid hsl(var(--border));
-  transition: all 0.3s ease;
+  transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -242,7 +270,11 @@ html {
 .btn-outline:hover {
   border-color: hsl(var(--primary));
   color: hsl(var(--primary));
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.02);
+}
+
+.btn-outline:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /* Form inputs */
@@ -255,7 +287,7 @@ html {
   color: hsl(var(--foreground));
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
-  transition: all 0.3s ease;
+  transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
   outline: none;
 }
 
@@ -265,11 +297,33 @@ html {
 
 .input-dark:focus {
   border-color: hsl(var(--primary));
-  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1), 0 4px 16px hsl(var(--primary) / 0.05);
+  transform: translateY(-1px);
 }
 
 /* Selection */
 ::selection {
   background: hsl(var(--primary) / 0.3);
   color: hsl(var(--foreground));
+}
+
+/* Smooth link hover */
+a {
+  transition: color 0.2s ease;
+}
+
+/* Floating animation for decorative elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Subtle glow pulse for primary elements */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0); }
+  50% { box-shadow: 0 0 20px 2px hsl(var(--primary) / 0.15); }
 }

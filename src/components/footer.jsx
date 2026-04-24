@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowUp, Twitter, Pen, Palette, MessageCircle } from "lucide-react";
 
 const socialLinks = [
   {
@@ -13,6 +12,30 @@ const socialLinks = [
     href: "https://www.linkedin.com/in/ahmed-saffar-memon-b26298294",
     icon: Linkedin,
     label: "Connect on LinkedIn",
+  },
+  {
+    name: "X / Twitter",
+    href: "https://x.com/@Ahmed11445237",
+    icon: Twitter,
+    label: "Follow me on X",
+  },
+  {
+    name: "Behance",
+    href: "https://www.behance.net/ahmedmemon22",
+    icon: Palette,
+    label: "View my Behance portfolio",
+  },
+  {
+    name: "Medium",
+    href: "https://medium.com/@memon1ahmed",
+    icon: Pen,
+    label: "Read my articles on Medium",
+  },
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/923073762276",
+    icon: MessageCircle,
+    label: "Chat on WhatsApp",
   },
   {
     name: "Email",
@@ -43,7 +66,7 @@ export default function Footer() {
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap justify-center">
             {socialLinks.map((link) => (
               <a
                 key={link.name}

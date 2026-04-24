@@ -1,6 +1,61 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Mail, MapPin, Linkedin, Github } from "lucide-react";
+import { Send, Mail, MapPin, Linkedin, Github, Twitter, Pen, Palette, MessageCircle, Apple } from "lucide-react";
+
+const contactInfo = [
+  {
+    icon: Mail,
+    label: "Gmail",
+    value: "memon1ahmed@gmail.com",
+    href: "mailto:memon1ahmed@gmail.com",
+  },
+  {
+    icon: Apple,
+    label: "iCloud",
+    value: "ahmedhere1@icloud.com",
+    href: "mailto:ahmedhere1@icloud.com",
+  },
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: "+92 307 376 2276",
+    href: "https://wa.me/923073762276",
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Hyderabad, Pakistan",
+    href: null,
+  },
+];
+
+const socialLinks = [
+  {
+    icon: Github,
+    href: "https://github.com/ahmed9088",
+    label: "GitHub Profile",
+  },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/ahmed-saffar-memon-b26298294",
+    label: "LinkedIn Profile",
+  },
+  {
+    icon: Twitter,
+    href: "https://x.com/@Ahmed11445237",
+    label: "X / Twitter Profile",
+  },
+  {
+    icon: Palette,
+    href: "https://www.behance.net/ahmedmemon22",
+    label: "Behance Portfolio",
+  },
+  {
+    icon: Pen,
+    href: "https://medium.com/@memon1ahmed",
+    label: "Medium Blog",
+  },
+];
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -52,55 +107,51 @@ export default function Contact() {
               possible.
             </p>
 
-            <div className="space-y-6">
-              <a
-                href="mailto:memon1ahmed@gmail.com"
-                className="flex items-center gap-4 group"
-              >
-                <div className="p-3 rounded-2xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                  <Mail className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold mb-0.5">
-                    Email
-                  </p>
-                  <p className="font-semibold group-hover:text-primary transition-colors">
-                    memon1ahmed@gmail.com
-                  </p>
-                </div>
-              </a>
+            <div className="space-y-5">
+              {contactInfo.map((item) => {
+                const Wrapper = item.href ? "a" : "div";
+                const wrapperProps = item.href
+                  ? {
+                      href: item.href,
+                      target: item.href.startsWith("http") ? "_blank" : undefined,
+                      rel: item.href.startsWith("http") ? "noopener noreferrer" : undefined,
+                    }
+                  : {};
+                return (
+                  <Wrapper
+                    key={item.label}
+                    {...wrapperProps}
+                    className="flex items-center gap-4 group"
+                  >
+                    <div className="p-3 rounded-2xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                      <item.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold mb-0.5">
+                        {item.label}
+                      </p>
+                      <p className="font-semibold group-hover:text-primary transition-colors">
+                        {item.value}
+                      </p>
+                    </div>
+                  </Wrapper>
+                );
+              })}
 
-              <div className="flex items-center gap-4">
-                <div className="p-3 rounded-2xl bg-primary/10">
-                  <MapPin className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold mb-0.5">
-                    Location
-                  </p>
-                  <p className="font-semibold">Hyderabad, Pakistan</p>
-                </div>
-              </div>
-
-              <div className="flex gap-3 pt-4">
-                <a
-                  href="https://github.com/ahmed9088"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 rounded-2xl border border-border hover:border-primary hover:text-primary transition-all"
-                  aria-label="GitHub Profile"
-                >
-                  <Github className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/ahmed-saffar-memon-b26298294"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 rounded-2xl border border-border hover:border-primary hover:text-primary transition-all"
-                  aria-label="LinkedIn Profile"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
+              {/* Social Links */}
+              <div className="flex gap-3 pt-4 flex-wrap">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 rounded-2xl border border-border hover:border-primary hover:text-primary transition-all"
+                    aria-label={link.label}
+                  >
+                    <link.icon className="w-5 h-5" />
+                  </a>
+                ))}
               </div>
             </div>
           </motion.div>

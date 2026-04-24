@@ -1,28 +1,17 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import Lenis from "lenis";
 import CustomCursor from "./components/ui/CustomCursor";
 import ScrollProgress from "./components/ui/ScrollProgress";
 import Header from "./components/header.jsx";
-
-// Lazy loaded components for better performance
-const Hero = lazy(() => import("./components/hero.jsx"));
-const About = lazy(() => import("./components/about.jsx"));
-const Education = lazy(() => import("./components/education.jsx"));
-const TechStack = lazy(() => import("./components/tech-stack.jsx"));
-const Projects = lazy(() => import("./components/projects.jsx"));
-const Testimonials = lazy(() => import("./components/testimonials.jsx"));
-const Contact = lazy(() => import("./components/contact.jsx"));
-const Footer = lazy(() => import("./components/footer.jsx"));
-const ScrollToTop = lazy(() => import("./components/ScrollToTop"));
-
-// Loading fallback
-const LoadingSection = () => (
-  <div className="min-h-[50vh] flex items-center justify-center">
-    <div className="flex flex-col items-center gap-4">
-      <div className="w-10 h-10 rounded-full border-2 border-primary border-t-transparent animate-spin" />
-    </div>
-  </div>
-);
+import Hero from "./components/hero.jsx";
+import About from "./components/about.jsx";
+import Education from "./components/education.jsx";
+import TechStack from "./components/tech-stack.jsx";
+import Projects from "./components/projects.jsx";
+import Testimonials from "./components/testimonials.jsx";
+import Contact from "./components/contact.jsx";
+import Footer from "./components/footer.jsx";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
@@ -79,17 +68,15 @@ export default function App() {
       <ScrollProgress />
       <Header activeSection={activeSection} />
       <main>
-        <Suspense fallback={<LoadingSection />}>
-          <Hero />
-          <About />
-          <Education />
-          <TechStack />
-          <Projects />
-          <Testimonials />
-          <Contact />
-          <Footer />
-          <ScrollToTop />
-        </Suspense>
+        <Hero />
+        <About />
+        <Education />
+        <TechStack />
+        <Projects />
+        <Testimonials />
+        <Contact />
+        <Footer />
+        <ScrollToTop />
       </main>
     </div>
   );

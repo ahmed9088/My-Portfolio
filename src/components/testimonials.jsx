@@ -84,9 +84,9 @@ export default function Testimonials() {
     <section id="testimonials" className="py-20 md:py-32">
       <div className="container mx-auto px-6 max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           className="mb-16"
         >
@@ -100,9 +100,9 @@ export default function Testimonials() {
 
         {/* Featured Testimonial Carousel */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
           viewport={{ once: true }}
           className="card-dark p-8 md:p-12 mb-8 relative overflow-hidden"
         >
@@ -184,9 +184,9 @@ export default function Testimonials() {
           {testimonials.slice(0, 3).map((t, i) => (
             <motion.div
               key={t.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              transition={{ duration: 0.35, delay: i * 0.06 }}
               viewport={{ once: true }}
               className={`card-dark p-6 cursor-pointer transition-all ${
                 current === i

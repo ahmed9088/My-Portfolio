@@ -55,17 +55,17 @@ export default function Header({ activeSection }) {
       {/* ═══════════════════════ DESKTOP — Dynamic Island ═══════════════════════ */}
       <motion.header
         ref={headerRef}
-        initial={{ opacity: 0, y: -40, scale: 0.8 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-        className="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden md:block"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+        className="fixed top-4 inset-x-0 z-50 hidden md:flex justify-center pointer-events-none"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <motion.nav
           layout
           aria-label="Main navigation"
-          className="relative"
+          className="relative pointer-events-auto"
           transition={{ layout: { duration: 0.4, ease: [0.23, 1, 0.32, 1] } }}
         >
           <motion.div

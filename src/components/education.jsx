@@ -45,9 +45,9 @@ export default function Education() {
     <section id="experience" className="py-20 md:py-32">
       <div className="container mx-auto px-6 max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           className="mb-16"
         >
@@ -63,9 +63,9 @@ export default function Education() {
           {experiences.map((exp, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.4, delay: i * 0.06 }}
               viewport={{ once: true }}
               className="timeline-item"
             >

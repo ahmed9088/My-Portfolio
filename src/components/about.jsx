@@ -13,9 +13,9 @@ export default function About() {
     <section id="about" className="py-20 md:py-32">
       <div className="container mx-auto px-6 max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
           <span className="section-label">About Me</span>
@@ -28,18 +28,18 @@ export default function About() {
 
         {/* Stats Grid */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
           viewport={{ once: true }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16"
         >
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.4, delay: i * 0.06 }}
               viewport={{ once: true }}
               className="stat-card"
             >
@@ -52,9 +52,9 @@ export default function About() {
         {/* Bio Section */}
         <div className="grid md:grid-cols-2 gap-6">
           <motion.article
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -8 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             className="card-dark p-8 md:p-10"
           >
@@ -83,9 +83,9 @@ export default function About() {
           </motion.article>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 8 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
             viewport={{ once: true }}
             className="space-y-6"
           >

@@ -90,9 +90,9 @@ export default function Contact() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Info Side */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -8 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
             <span className="section-label">Contact</span>
@@ -158,9 +158,9 @@ export default function Contact() {
 
           {/* Form Side */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 8 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
             viewport={{ once: true }}
           >
             <form onSubmit={handleSubmit} className="card-dark p-8 md:p-10">

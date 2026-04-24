@@ -12,15 +12,15 @@ export default function Hero() {
         <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
           {/* Text Content */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             className="flex-1 text-center lg:text-left"
           >
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.15 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
             >
               <span className="relative flex h-2 w-2">
@@ -57,9 +57,9 @@ export default function Hero() {
 
           {/* Portrait */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
             className="flex-shrink-0"
           >
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">

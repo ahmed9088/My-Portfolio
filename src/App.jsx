@@ -9,6 +9,7 @@ import Education from "./components/education.jsx";
 import TechStack from "./components/tech-stack.jsx";
 import Projects from "./components/projects.jsx";
 import Testimonials from "./components/testimonials.jsx";
+import Blog from "./components/blog.jsx";
 import Contact from "./components/contact.jsx";
 import Footer from "./components/footer.jsx";
 import ScrollToTop from "./components/ScrollToTop";
@@ -51,7 +52,7 @@ export default function App() {
       { threshold: 0.3 }
     );
 
-    ["home", "about", "experience", "skills", "projects", "testimonials", "contact"].forEach((id) => {
+    ["home", "about", "experience", "skills", "projects", "testimonials", "blog", "contact"].forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
@@ -74,6 +75,7 @@ export default function App() {
         <TechStack />
         <Projects />
         <Testimonials />
+        <Blog />
         <Contact />
         <Footer />
         <ScrollToTop />

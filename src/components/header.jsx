@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon, User, Briefcase, Code2, FolderGit2, MessageSquare, Mail } from "lucide-react";
+import { Menu, X, Sun, Moon, User, Briefcase, Code2, FolderGit2, MessageSquare, BookOpen, Mail } from "lucide-react";
 import { useTheme } from "./theme-provider";
 
 const navigation = [
@@ -9,6 +9,7 @@ const navigation = [
   { name: "Skills", href: "#skills", id: "skills", icon: Code2 },
   { name: "Projects", href: "#projects", id: "projects", icon: FolderGit2 },
   { name: "Reviews", href: "#testimonials", id: "testimonials", icon: MessageSquare },
+  { name: "Blog", href: "#blog", id: "blog", icon: BookOpen },
   { name: "Contact", href: "#contact", id: "contact", icon: Mail },
 ];
 

@@ -76,7 +76,7 @@ export default function About() {
               </p>
               <p>
                 Over the years, I've worked with 30+ clients across different
-                industries — delivering everything from landing pages to
+                industries, delivering everything from landing pages to
                 full-scale SaaS platforms.
               </p>
             </div>

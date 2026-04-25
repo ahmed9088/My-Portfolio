@@ -12,17 +12,17 @@ const blogPosts = [
     readTime: "6 min read",
     category: "Web Development",
     tags: ["React", "WordPress", "Career"],
-    content: `I remember my first freelance project — a small bakery website in Hyderabad. WordPress was the obvious choice. Starter theme, a few plugins, done in two days. The client was happy, I got paid, life was good.
+    content: `I remember my first freelance project, a small bakery website in Hyderabad. WordPress was the obvious choice. Starter theme, a few plugins, done in two days. The client was happy, I got paid, life was good.
 
 Fast forward to project number 20-something, and I was spending more time wrestling with plugin conflicts than actually building anything. One update would break the contact form, another would mess up the mobile layout. I was basically a full-time plugin babysitter.
 
-The turning point came when a client asked me to add a simple feature — a dynamic pricing calculator. In WordPress, this meant finding a plugin, realizing it didn't quite do what we needed, then hacking around it with custom JavaScript that felt held together with tape and hope.
+The turning point came when a client asked me to add a simple feature: a dynamic pricing calculator. In WordPress, this meant finding a plugin, realizing it didn't quite do what we needed, then hacking around it with custom JavaScript that felt held together with tape and hope.
 
 That's when I thought: why am I fighting the tool instead of using one that actually fits?
 
-I spent two weekends learning React. The first project I rebuilt — that same bakery site — loaded 3x faster and I had complete control over every pixel. No more guessing what a plugin does behind the scenes.
+I spent two weekends learning React. The first project I rebuilt (that same bakery site) loaded 3x faster and I had complete control over every pixel. No more guessing what a plugin does behind the scenes.
 
-Now, I still use WordPress when it genuinely makes sense — blogs, content-heavy sites where the client needs to update things daily. But for anything interactive, custom, or performance-critical? React wins every time.
+Now, I still use WordPress when it genuinely makes sense. Blogs, content-heavy sites where the client needs to update things daily. But for anything interactive, custom, or performance-critical? React wins every time.
 
 The biggest lesson wasn't about the tech. It was about being honest with myself about when a tool stops serving you and starts holding you back.`,
   },
@@ -39,7 +39,7 @@ The biggest lesson wasn't about the tech. It was about being honest with myself 
 
 **1. Charging Too Little Because I Was "New"**
 
-My first Fiverr gig? I built an entire e-commerce dashboard for $50. Fifty dollars. That's less than what the client probably spent on lunch that week. I told myself "I'm just starting out, I need reviews." But what I was really doing was training clients to undervalue my work — and training myself to believe I wasn't worth more.
+My first Fiverr gig? I built an entire e-commerce dashboard for $50. Fifty dollars. That's less than what the client probably spent on lunch that week. I told myself "I'm just starting out, I need reviews." But what I was really doing was training clients to undervalue my work, and training myself to believe I wasn't worth more.
 
 The fix: I started pricing based on the value I delivered, not the hours I spent. A dashboard that saves a business owner 10 hours a week? That's worth thousands, not fifty bucks.
 
@@ -67,11 +67,11 @@ Now every project starts with a clear scope, timeline, and payment terms in writ
 
 These days I take breaks, go for walks, and actually eat real food. Radical stuff, I know.
 
-The truth is, most of this could've been avoided if I'd just asked someone who'd been through it. That's partly why I'm writing this — so maybe one person reads it and skips the $50 dashboard phase.`,
+The truth is, most of this could've been avoided if I'd just asked someone who'd been through it. That's partly why I'm writing this. So maybe one person reads it and skips the $50 dashboard phase.`,
   },
   {
     id: "react-vs-nextjs-which-to-learn",
-    title: "React vs Next.js — Which Should You Actually Learn First?",
+    title: "React vs Next.js: Which Should You Actually Learn First?",
     excerpt:
       "Everyone has an opinion on this. Here's mine, based on building production apps with both for the last 3 years. Spoiler: the answer depends on what you're building.",
     date: "Mar 28, 2026",
@@ -84,13 +84,13 @@ Here's my take, based on actually shipping real products with both.
 
 **Learn React first. Period.**
 
-Next.js IS React. It's React with extra features bolted on — server-side rendering, file-based routing, API routes, image optimization. If you don't understand React fundamentals (components, state, hooks, props), Next.js will feel like magic you can't debug.
+Next.js IS React. It's React with extra features bolted on: server-side rendering, file-based routing, API routes, image optimization. If you don't understand React fundamentals (components, state, hooks, props), Next.js will feel like magic you can't debug.
 
 I made this mistake early on. I jumped straight into Next.js because everyone on Twitter said it was "the future." Then I spent three days debugging a hydration error because I didn't understand how React renders on the server vs. the client.
 
 **When to move to Next.js:**
 
-Once you're comfortable building a full React app — managing state, fetching data, handling routing with React Router — then Next.js becomes incredibly powerful. You'll actually understand WHY it does what it does.
+Once you're comfortable building a full React app (managing state, fetching data, handling routing with React Router), then Next.js becomes incredibly powerful. You'll actually understand WHY it does what it does.
 
 For my freelance clients, here's my rough decision tree:
 
@@ -100,7 +100,7 @@ For my freelance clients, here's my rough decision tree:
 
 **The real answer nobody wants to hear:**
 
-It doesn't matter that much which one you start with. What matters is that you build things. Real things. Not tutorial projects — actual apps that solve actual problems.
+It doesn't matter that much which one you start with. What matters is that you build things. Real things. Not tutorial projects, but actual apps that solve actual problems.
 
 I learned more from building one client's booking system than from 50 YouTube tutorials. Pick a tool, build something real, and you'll figure the rest out along the way.`,
   },
@@ -117,7 +117,7 @@ I learned more from building one client's booking system than from 50 YouTube tu
 
 I want to push back on that.
 
-Last year, I built a patient management system for a healthcare startup. Full SaaS — multi-tenant architecture, role-based access, appointment scheduling, billing, the works. The tech stack was Next.js on the frontend, Node.js with PostgreSQL on the backend, deployed on Vercel and Railway.
+Last year, I built a patient management system for a healthcare startup. Full SaaS. Multi-tenant architecture, role-based access, appointment scheduling, billing, the works. The tech stack was Next.js on the frontend, Node.js with PostgreSQL on the backend, deployed on Vercel and Railway.
 
 I built it from my room in Hyderabad, Sindh. On a laptop that occasionally overheats when I have too many Chrome tabs open.
 
@@ -131,13 +131,13 @@ I built it from my room in Hyderabad, Sindh. On a laptop that occasionally overh
 
 - Internet outages at the worst possible times. I now have two backup connections.
 - Payment processing is a nightmare. Receiving payments from international clients involves multiple conversion steps.
-- The "where are you based?" question on client calls. Some clients hear "Pakistan" and hesitate. Their loss — I've delivered for the ones who didn't.
+- The "where are you based?" question on client calls. Some clients hear "Pakistan" and hesitate. Their loss, honestly. I've delivered for the ones who didn't.
 
 **What I've learned:**
 
 Your location doesn't define your capability. The same Next.js runs the same way whether I write it in Hyderabad or San Francisco. The code doesn't know where it was written.
 
-If you're a developer in Pakistan, or anywhere outside the traditional tech hubs — just build. Ship. Put it online. Let the work speak for itself. That's what I did, and three years later, I have clients from 8 different countries who've never asked where my office is.
+If you're a developer in Pakistan, or anywhere outside the traditional tech hubs, just build. Ship. Put it online. Let the work speak for itself. That's what I did, and three years later, I have clients from 8 different countries who've never asked where my office is.
 
 Because the work is the proof.`,
   },

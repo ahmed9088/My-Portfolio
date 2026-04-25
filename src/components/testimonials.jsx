@@ -8,7 +8,7 @@ const testimonials = [
     role: "Founder, QuickServ",
     platform: "Upwork",
     rating: 5,
-    text: "Honestly, I was skeptical at first because we'd already been burned by two developers who just disappeared mid-project. Ahmed was different — he actually listened to what we needed, asked smart questions, and delivered the first working version in like 10 days. Our SaaS dashboard loads way faster than I expected and he even caught some UX issues I hadn't thought of. Would 100% hire again.",
+    text: "Honestly, I was skeptical at first because we'd already been burned by two developers who just disappeared mid-project. Ahmed was different. He actually listened to what we needed, asked smart questions, and delivered the first working version in like 10 days. Our SaaS dashboard loads way faster than I expected and he even caught some UX issues I hadn't thought of. Would 100% hire again.",
     avatar: "HA",
   },
   {
@@ -16,7 +16,7 @@ const testimonials = [
     role: "Runs an online clothing brand",
     platform: "Fiverr",
     rating: 5,
-    text: "I'm not a tech person at all, so I was nervous about getting a custom site built. Ahmed explained everything in plain language — no confusing jargon. He built my Shopify store with a custom dashboard where I can track orders and inventory. It's been 6 months and I haven't needed to contact him for any bugs. That says a lot.",
+    text: "I'm not a tech person at all, so I was nervous about getting a custom site built. Ahmed explained everything in plain language, no confusing jargon. He built my Shopify store with a custom dashboard where I can track orders and inventory. It's been 6 months and I haven't needed to contact him for any bugs. That says a lot.",
     avatar: "FZ",
   },
   {
@@ -24,7 +24,7 @@ const testimonials = [
     role: "Marketing Agency Owner",
     platform: "LinkedIn",
     rating: 5,
-    text: "We've sent Ahmed maybe 7 or 8 projects now? Everything from quick WordPress fixes to a full React app for one of our bigger clients. What I appreciate most is that he doesn't just say yes to everything — if something won't work, he'll tell you upfront and suggest a better approach. Super reliable.",
+    text: "We've sent Ahmed maybe 7 or 8 projects now? Everything from quick WordPress fixes to a full React app for one of our bigger clients. What I appreciate most is that he doesn't just say yes to everything. If something won't work, he'll tell you upfront and suggest a better approach. Super reliable.",
     avatar: "BR",
   },
   {
@@ -32,7 +32,7 @@ const testimonials = [
     role: "Co-founder, a small clinic",
     platform: "Facebook",
     rating: 5,
-    text: "We needed a patient booking system and Ahmed built it with Next.js (I had to Google what that was lol). But seriously — the app works great, our receptionist figured it out in one day without any training manual, and patients can book appointments from their phones now. He also helped us set up the hosting so we're not paying crazy server bills.",
+    text: "We needed a patient booking system and Ahmed built it with Next.js (I had to Google what that was lol). But seriously, the app works great, our receptionist figured it out in one day without any training manual, and patients can book appointments from their phones now. He also helped us set up the hosting so we're not paying crazy server bills.",
     avatar: "AN",
   },
   {
@@ -40,7 +40,7 @@ const testimonials = [
     role: "Property Business",
     platform: "Upwork",
     rating: 5,
-    text: "Finding a developer who can do both web AND mobile is surprisingly hard. I needed a property listing site with map integration plus a Flutter app for our agents in the field. Ahmed handled both. The app isn't fancy or over-designed — it just works, which is exactly what my team needed. Good communication throughout the whole project.",
+    text: "Finding a developer who can do both web AND mobile is surprisingly hard. I needed a property listing site with map integration plus a Flutter app for our agents in the field. Ahmed handled both. The app isn't fancy or over-designed, it just works, which is exactly what my team needed. Good communication throughout the whole project.",
     avatar: "UT",
   },
   {
@@ -48,7 +48,7 @@ const testimonials = [
     role: "EdTech Startup",
     platform: "Fiverr",
     rating: 5,
-    text: "Ahmed built our learning platform — video courses, quizzes, payment gateway, the whole thing. I'll be honest, we kept changing requirements midway (sorry Ahmed 😅) and he handled it really well. Never complained, just adjusted and kept moving. We have around 500 students using it daily now and it hasn't crashed once.",
+    text: "Ahmed built our learning platform. Video courses, quizzes, payment gateway, the whole thing. I'll be honest, we kept changing requirements midway (sorry Ahmed 😅) and he handled it really well. Never complained, just adjusted and kept moving. We have around 500 students using it daily now and it hasn't crashed once.",
     avatar: "SB",
   },
 ];

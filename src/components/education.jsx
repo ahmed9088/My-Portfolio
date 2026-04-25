@@ -4,7 +4,7 @@ import { useTheme } from "./theme-provider";
 
 const experiences = [
   {
-    period: "2022 — Present",
+    period: "2022 - Present",
     title: "Freelance Full Stack Developer",
     company: "Self-Employed",
     description:
@@ -12,7 +12,7 @@ const experiences = [
     type: "work",
   },
   {
-    period: "2024 — Present",
+    period: "2024 - Present",
     title: "BS Computer Science",
     company: "GCU Hyderabad",
     description:
@@ -20,7 +20,7 @@ const experiences = [
     type: "education",
   },
   {
-    period: "2023 — 2024",
+    period: "2023 - 2024",
     title: "Technical Mentor",
     company: "Aptech",
     description:
@@ -28,8 +28,8 @@ const experiences = [
     type: "mentorship",
   },
   {
-    period: "2022 — 2025",
-    title: "ADSE — Full Stack Development",
+    period: "2022 - 2025",
+    title: "ADSE - Full Stack Development",
     company: "Aptech",
     description:
       "Advanced Diploma in Software Engineering. Mastered PHP, Laravel, Flutter, React, and full-stack web architecture.",
